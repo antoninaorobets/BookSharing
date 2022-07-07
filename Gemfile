@@ -12,6 +12,12 @@ gem "pg", "~> 1.1"
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", "~> 5.0"
 
+# Use Active Model has_secure_password
+gem 'bcrypt', '~> 3.1.7'
+
+#Use validator for email
+gem 'email_validator'  
+
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 # gem "jbuilder"
 
