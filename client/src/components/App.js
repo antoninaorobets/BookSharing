@@ -3,6 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import '@fontsource/roboto/300.css';
 import Typography from '@mui/material/Typography';
 import Login from "./LoginForm";
+import SignUp from "./SignupForm";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -19,6 +20,7 @@ function App() {
           <Route path="/testing"element={  <Typography mt={2} variant="h3" component="div" gutterBottom>Test Route</Typography>}/>
           <Route path="/" element={ <h1>Page Count: {count}</h1>}/>
           <Route path="/login" element={ <Login/>}/>
+          <Route path="/signup" element={ <SignUp/>}/>
         </Routes>
       </div>
   );;

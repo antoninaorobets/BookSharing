@@ -63,6 +63,7 @@ function Login() {
             <Button
               type="submit"
               fullWidth
+              size="large"
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
