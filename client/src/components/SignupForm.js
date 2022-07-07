@@ -16,17 +16,7 @@ import { deepOrange, indigo } from '@mui/material/colors';
 
 
 
-export default function SignUp() {
-    let theme = createTheme({
-        palette: {
-          primary: {
-            main: '#827397',
-          },
-          secondary: {
-            main: '#edf2ff',
-          },
-        },
-      })
+export default function SignUp({theme}) {
       
   const handleSubmit = (event) => {
     event.preventDefault();

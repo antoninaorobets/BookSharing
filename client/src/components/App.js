@@ -4,23 +4,33 @@ import '@fontsource/roboto/300.css';
 import Typography from '@mui/material/Typography';
 import Login from "./LoginForm";
 import SignUp from "./SignupForm";
+import { createTheme } from '@mui/material/styles';
 
 function App() {
-  const [count, setCount] = useState(0);
-
-  useEffect(() => {
-    fetch("/hello")
-      .then((r) => r.json())
-      .then((data) => setCount(data.count));
-  }, []);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [user, setUser] = useState({});
+  const theme = createTheme({
+    palette: {
+      primary: {
+        main: '#827397',
+      },
+      secondary: {
+        main: '#edf2ff',
+      },
+    },
+  });
+  const loginUser = (userData) =>{
+    setIsLoggedIn(true)
+    setUser(userData)
+    
+  }
 
   return (
       <div className="App">
         <Routes>
-          <Route path="/testing"element={  <Typography mt={2} variant="h3" component="div" gutterBottom>Test Route</Typography>}/>
-          <Route path="/" element={ <h1>Page Count: {count}</h1>}/>
-          <Route path="/login" element={ <Login/>}/>
-          <Route path="/signup" element={ <SignUp/>}/>
+        <Route path="/" element={<h1>HomePage</h1>}/>
+          <Route path="/login" element={<Login theme={theme} loginUser={loginUser}/>}/>
+          <Route path="/signup" element={<SignUp theme={theme}/>}/>
         </Routes>
       </div>
   );;

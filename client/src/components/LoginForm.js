@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -6,22 +6,47 @@ import TextField from '@mui/material/TextField';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
+import Alert from '@mui/material/Alert';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { ThemeProvider } from '@mui/material/styles';
+import { useNavigate } from 'react-router-dom';
 
+function Login({theme,loginUser}) {
+    const [formData, setFormData] = useState({
+      email: '',
+      password: ''
+    })
+    const navigate = useNavigate()
+    const [errorMessage, setErrorMessage] = useState('')
 
-function Login() {
-  let theme = createTheme({
-    palette: {
-      primary: {
-        main: '#827397',
-      },
-      secondary: {
-        main: '#edf2ff',
-      },
-    },
-  });
+    const handleChange = (e)=> { 
+      setFormData({
+        ...formData,
+        [e.target.name]: e.target.value
+      })
+    }
+    
+    const handleSubmit = (e)=>{
+      e.preventDefault()
+      fetch('/api/login',{
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(formData)
+      }).then(responce => {
+        if(responce.ok) {
+          responce.json().then(user => {
+            setFormData()
+            loginUser(user)
+            navigate('/')
+            })
+        } else {
+          responce.json().then(error => setErrorMessage(error))
+        }
+      })
+    }
+console.log(errorMessage)
+   
 
     return (
      <ThemeProvider theme={theme}>
@@ -39,7 +64,7 @@ function Login() {
           <Typography component="h1" variant="h5" color='#5F5B5B'>
             Sign in
           </Typography>
-          <Box component="form" onSubmit={()=>{console.log("submit")}} noValidate sx={{ mt: 1 }}>
+          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
             <TextField
               margin="normal"
               required
@@ -49,6 +74,7 @@ function Login() {
               name="email"
               autoComplete="email"
               autoFocus
+              onChange={handleChange}
             />
             <TextField
               margin="normal"
@@ -59,7 +85,9 @@ function Login() {
               type="password"
               id="password"
               autoComplete="current-password"
+              onChange={handleChange}
             />
+            {errorMessage ? <Alert severity="error"> {errorMessage.errors}</Alert>: null}
             <Button
               type="submit"
               fullWidth
