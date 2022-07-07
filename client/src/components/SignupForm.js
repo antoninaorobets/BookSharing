@@ -1,32 +1,58 @@
-import * as React from 'react';
+import React,{ useState } from 'react';
+import { useNavigate, Link } from 'react-router-dom'
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
+import Alert from '@mui/material/Alert';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
+import MenuBookTwoToneIcon from '@mui/icons-material/MenuBookTwoTone';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { deepOrange, indigo } from '@mui/material/colors';
 
 
 
-export default function SignUp({theme}) {
+export default function SignUp({theme,loginUser}) {
+    const [formData, setFormData] = useState({
+        name: '',
+        email: '',
+        password: '',
+        "password_confirmation": ''
+      })
+      const navigate = useNavigate()
+      const [errorMessage, setErrorMessage] = useState('')
+  
+      const handleChange = (e)=> { 
+        setFormData({
+          ...formData,
+          [e.target.name]: e.target.value
+        })
+      }
       
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
-  };
-
+    const handleSubmit = (e)=>{
+    e.preventDefault()
+    fetch('/api/signup',{
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(formData)
+    }).then(responce => {
+        if(responce.ok) {
+        responce.json().then(user => {
+            setFormData()
+            loginUser(user)
+            navigate('/')
+            })
+        } else {
+        responce.json().then(error => setErrorMessage(error))
+        }
+    })
+    }
+    console.log(errorMessage.errors)
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
@@ -40,7 +66,7 @@ export default function SignUp({theme}) {
           }}
         >
           <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-            <LockOutlinedIcon />
+            <MenuBookTwoToneIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
             Sign up
@@ -56,6 +82,7 @@ export default function SignUp({theme}) {
                   id="name"
                   label="Name"
                   autoFocus
+                  onChange={handleChange}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -66,6 +93,7 @@ export default function SignUp({theme}) {
                   label="Email Address"
                   name="email"
                   autoComplete="email"
+                  onChange={handleChange}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -77,6 +105,7 @@ export default function SignUp({theme}) {
                   type="password"
                   id="password"
                   autoComplete="new-password"
+                  onChange={handleChange}
                 />
               </Grid><Grid item xs={12}>
                 <TextField
@@ -87,9 +116,11 @@ export default function SignUp({theme}) {
                   type="password"
                   id="password_confirmation"
                   autoComplete="new-password"
+                  onChange={handleChange}
                 />
               </Grid>
             </Grid>
+            {errorMessage ? <Alert severity="error"> {errorMessage.errors.join(' ')}</Alert>: null}
             <Button
               type="submit"
               size="large"
@@ -101,7 +132,7 @@ export default function SignUp({theme}) {
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link to="/login" variant="body2">
+                <Link to="/login" variant="body2" style={{color:"#827397"}}>
                   Already have an account? Sign in
                 </Link>
               </Grid>

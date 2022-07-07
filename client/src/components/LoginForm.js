@@ -1,16 +1,9 @@
 import React, {useState} from 'react'
 
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import Alert from '@mui/material/Alert';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
+import {Container, Avatar, Button, Grid, Box, Alert, Typography, TextField, CssBaseline} from '@mui/material';
+import MenuBookTwoToneIcon from '@mui/icons-material/MenuBookTwoTone';
 import { ThemeProvider } from '@mui/material/styles';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate ,Link  } from 'react-router-dom';
 
 function Login({theme,loginUser}) {
     const [formData, setFormData] = useState({
@@ -45,8 +38,6 @@ function Login({theme,loginUser}) {
         }
       })
     }
-console.log(errorMessage)
-   
 
     return (
      <ThemeProvider theme={theme}>
@@ -60,7 +51,9 @@ console.log(errorMessage)
             alignItems: 'center',
           }}
         >
-
+           <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+            <MenuBookTwoToneIcon />
+          </Avatar>
           <Typography component="h1" variant="h5" color='#5F5B5B'>
             Sign in
           </Typography>
@@ -99,13 +92,13 @@ console.log(errorMessage)
             </Button>
             <Grid container>
               <Grid item xs>
-                <Link href="#" variant="body2">
+                {/* <Link href="#" variant="body2">
                   Forgot password?
-                </Link>
+                </Link> */}
               </Grid>
               <Grid item>
-                <Link href="#" variant="body2">
-                  {"Don't have an account? Sign Up"}
+                <Link to="/signup" variant="body2"style={{color:"#827397"}}>
+                  Don't have an account? Sign Up
                 </Link>
               </Grid>
             </Grid>
