@@ -37,6 +37,7 @@ function Login({theme,loginUser}) {
           responce.json().then(error => setErrorMessage(error))
         }
       })
+    e.target.reset()
     }
 
     return (
