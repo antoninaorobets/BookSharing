@@ -12,12 +12,11 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import MenuBookTwoToneIcon from '@mui/icons-material/MenuBookTwoTone';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { deepOrange, indigo } from '@mui/material/colors';
 import validator from 'validator'
 
 
-export default function SignUp({ theme, loginUser }) {
+export default function SignUp({ loginUser }) {
     const emptyForm = {
         name: '',
         email: '',
@@ -36,7 +35,7 @@ export default function SignUp({ theme, loginUser }) {
     }
     const handleSubmit = (e) => {
         e.preventDefault()
-        if (formData.password.length >=8) {
+        if (formData.password.length >= 8) {
             fetch('/api/signup', {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -57,95 +56,93 @@ export default function SignUp({ theme, loginUser }) {
             setErrorMessage("Password mast bee at list 8 characters long")
             setFormData(emptyForm)
         }
-    e.target.reset()
+        e.target.reset()
     }
     return (
-        <ThemeProvider theme={theme}>
-            <Container component="main" maxWidth="xs">
-                <CssBaseline />
-                <Box
-                    sx={{
-                        marginTop: 8,
-                        display: 'flex',
-                        flexDirection: 'column',
-                        alignItems: 'center',
-                    }}
-                >
-                    <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-                        <MenuBookTwoToneIcon />
-                    </Avatar>
-                    <Typography component="h1" variant="h5">
-                        Sign up
-                    </Typography>
-                    <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
-                        <Grid container spacing={2}>
-                            <Grid item xs={12} >
-                                <TextField
-                                    autoComplete="given-name"
-                                    name="name"
-                                    required
-                                    fullWidth
-                                    id="name"
-                                    label="Name"
-                                    autoFocus
-                                    onChange={handleChange}
-                                />
-                            </Grid>
-                            <Grid item xs={12}>
-                                <TextField
-                                    required
-                                    fullWidth
-                                    id="email"
-                                    label="Email Address"
-                                    name="email"
-                                    autoComplete="email"
-                                    onChange={handleChange}
-                                />
-                            </Grid>
-                            <Grid item xs={12}>
-                                <TextField
-                                    required
-                                    fullWidth
-                                    name="password"
-                                    label="Password"
-                                    type="password"
-                                    id="password"
-                                    autoComplete="new-password"
-                                    onChange={handleChange}
-                                />
-                            </Grid><Grid item xs={12}>
-                                <TextField
-                                    required
-                                    fullWidth
-                                    name="password_confirmation"
-                                    label="Confirm Password"
-                                    type="password"
-                                    id="password_confirmation"
-                                    autoComplete="new-password"
-                                    onChange={handleChange}
-                                />
-                            </Grid>
+        <Container component="main" maxWidth="xs">
+            <CssBaseline />
+            <Box
+                sx={{
+                    marginTop: 8,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                }}
+            >
+                <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+                    <MenuBookTwoToneIcon />
+                </Avatar>
+                <Typography component="h1" variant="h5">
+                    Sign up
+                </Typography>
+                <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+                    <Grid container spacing={2}>
+                        <Grid item xs={12} >
+                            <TextField
+                                autoComplete="given-name"
+                                name="name"
+                                required
+                                fullWidth
+                                id="name"
+                                label="Name"
+                                autoFocus
+                                onChange={handleChange}
+                            />
                         </Grid>
-                        {errorMessage ? <Alert severity="error"> {errorMessage}</Alert> : null}
-                        <Button
-                            type="submit"
-                            size="large"
-                            fullWidth
-                            variant="contained"
-                            sx={{ mt: 3, mb: 2 }}
-                        >
-                            Sign Up
-                        </Button>
-                        <Grid container justifyContent="flex-end">
-                            <Grid item>
-                                <Link to="/login" variant="body2" style={{ color: "#827397" }}>
-                                    Already have an account? Sign in
-                                </Link>
-                            </Grid>
+                        <Grid item xs={12}>
+                            <TextField
+                                required
+                                fullWidth
+                                id="email"
+                                label="Email Address"
+                                name="email"
+                                autoComplete="email"
+                                onChange={handleChange}
+                            />
                         </Grid>
-                    </Box>
+                        <Grid item xs={12}>
+                            <TextField
+                                required
+                                fullWidth
+                                name="password"
+                                label="Password"
+                                type="password"
+                                id="password"
+                                autoComplete="new-password"
+                                onChange={handleChange}
+                            />
+                        </Grid><Grid item xs={12}>
+                            <TextField
+                                required
+                                fullWidth
+                                name="password_confirmation"
+                                label="Confirm Password"
+                                type="password"
+                                id="password_confirmation"
+                                autoComplete="new-password"
+                                onChange={handleChange}
+                            />
+                        </Grid>
+                    </Grid>
+                    {errorMessage ? <Alert severity="error"> {errorMessage}</Alert> : null}
+                    <Button
+                        type="submit"
+                        size="large"
+                        fullWidth
+                        variant="contained"
+                        sx={{ mt: 3, mb: 2 }}
+                    >
+                        Sign Up
+                    </Button>
+                    <Grid container justifyContent="flex-end">
+                        <Grid item>
+                            <Link to="/login" variant="body2" style={{ color: "#827397" }}>
+                                Already have an account? Sign in
+                            </Link>
+                        </Grid>
+                    </Grid>
                 </Box>
-            </Container>
-        </ThemeProvider>
+            </Box>
+        </Container>
     );
 }

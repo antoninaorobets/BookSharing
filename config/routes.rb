@@ -1,9 +1,16 @@
 Rails.application.routes.draw do
-  resources :users
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+  resources :books
 
-  # Defines the root path route ("/")
-  # root "articles#index"
+  scope :api do
+  
+  
+    # '/api/users/user_id/lists/'
+    resources :users, only: [:show] do
+      resources :lists, only: [:index]
+    end
+  end
+
+
   post '/api/signup', to: 'users#create'
   get '/api/me', to:'users#show'
   post '/api/login', to: 'sessions#create'
