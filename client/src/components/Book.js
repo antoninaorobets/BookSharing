@@ -15,7 +15,7 @@ function Book({book}) {
     //     "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,",
     //     "status": null}
   return (
-    <Card sx={{ maxWidth: 345, mb: 3 }} style={{borderColor: " #827397"}} >
+    <Card sx={{ maxWidth: 345, mb: 3 }} style={{bgcolor: " #827397"}} >
       {/* <CardMedia
         component="img"
         height="140"
