@@ -9,7 +9,8 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 
 
-function Book({book}) {
+function Book({book, handleDelete}) {
+
   return (
     <Card  sx={{ height: '100%', display: 'flex', flexDirection: 'column' }} style={{bgcolor: " #827397"}} >
        {/* <CardMedia
@@ -31,7 +32,7 @@ function Book({book}) {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small">Request</Button>
+        <Button size="small" onClick={()=>handleDelete(book.id)}>Delete</Button>
         <Button size="small">Edit</Button>
       </CardActions> 
     </Card>

@@ -6,6 +6,7 @@ import Container from '@mui/material/Container';
 import NewBookForm from './NewBookForm'
 import BooksControls from './BooksControls'
 import TextField from '@mui/material/TextField';
+import {deleteBook} from '../api/bookApi'
 
 function List({ user }) {
     const [list, setList] = useState([])
@@ -28,9 +29,14 @@ function List({ user }) {
                 }
             })
     }, [user])
+
+    const handleDelete =(id)=>{
+        deleteBook(user, id)
+        
+    }
     let booksList
     if (!isLoading) {
-        booksList = list.map(book => <Grid item xs={12} sm={6} md={4} ><Book key={book.id} book={book} /></Grid>)
+        booksList = list.map(book => <Grid item xs={12} sm={6} md={4} ><Book key={book.id} book={book} handleDelete={handleDelete} /></Grid>)
     }
 
     return (
