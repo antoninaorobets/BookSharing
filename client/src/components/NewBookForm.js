@@ -1,46 +1,52 @@
 import React, { useState } from 'react'
-import { Container, Divider, Avatar, Button, Grid, Box, Alert, Typography, TextField, CssBaseline } from '@mui/material';
-import MenuBookTwoToneIcon from '@mui/icons-material/MenuBookTwoTone';
-import { useNavigate, Link } from 'react-router-dom';
+import { Container, Divider,  Button, Grid, Box, Alert, Typography, TextField, CssBaseline } from '@mui/material';
+import {postBook} from '../api/bookApi'
 
-function NewBookForm({ setShowForm }) {
+function NewBookForm({user, setShowForm,list, setList }) {
     const [formData, setFormData] = useState({
         title: '',
         author: '',
         description: ''
     })
-    const navigate = useNavigate()
     const [errorMessage, setErrorMessage] = useState('')
-
     const handleChange = (e) => {
         setFormData({
             ...formData,
             [e.target.name]: e.target.value
         })
     }
+   
 
-    const handleSubmit = (e) => {
+    async function  handleSubmit(e)  {
         e.preventDefault()
-        // fetch('/api/login', {
+        const onSuccess =(book)=>{
+            setList([...list,book])
+            setShowForm(false)
+        }
+        const newBook = await postBook(user, formData, onSuccess)          
+        
+        
+       
+        // fetch(`/api/users/${user.id}/books/`, {
         //     method: "POST",
         //     headers: { "Content-Type": "application/json" },
         //     body: JSON.stringify(formData)
         // }).then(responce => {
         //     if (responce.ok) {
-        //         responce.json().then(user => {
-        //             setFormData()
-        //             loginUser(user)
-        //             navigate('/')
+        //         responce.json().then(book => {                  
+        //             setList([...list,book])
+        //             setShowForm(false)
+        //             return <Alert severity="success">This is a success alert — check it out!</Alert>
         //         })
         //     } else {
         //         responce.json().then(error => setErrorMessage(error))
         //     }
         // })
+
         e.target.reset()
     }
 
     return (
-
         <Container component="main" maxWidth="xm">
             <CssBaseline />
             <Box

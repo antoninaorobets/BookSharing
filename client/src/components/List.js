@@ -18,7 +18,8 @@ function List({ user }) {
                 if (responce.ok) {
                     responce.json()
                         .then(data => {
-                            setList(data[0])
+                            console.log(data[0])
+                            setList(data[0].books)
                             setLoading(false)
                         })
                 }
@@ -29,7 +30,7 @@ function List({ user }) {
     }, [user])
     let booksList
     if (!isLoading) {
-        booksList = list.books.map(book => <Grid item xs={12} sm={6} md={4} ><Book key={book.id} book={book} /></Grid>)
+        booksList = list.map(book => <Grid item xs={12} sm={6} md={4} ><Book key={book.id} book={book} /></Grid>)
     }
 
     return (
@@ -54,7 +55,7 @@ function List({ user }) {
                     </Typography>
                     <Container maxWidth="sm">
                         {showForm
-                            ? <NewBookForm setShowForm={setShowForm} />
+                            ? <NewBookForm setShowForm={setShowForm} user={user} list={list} setList={setList}/>
                             : <BooksControls setShowForm={setShowForm} />}
                     </Container>
                 </Container>

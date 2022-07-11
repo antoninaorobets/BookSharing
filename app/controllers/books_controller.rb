@@ -1,12 +1,19 @@
 class BooksController < ApplicationController
-
+    wrap_parameters format: []
     def create
-        book = Book.create(book_params)
-        render json: book, status: :created
+        user = User.find(params[:user_id])
+        list = user.lists.first
+        book = list.books.create(book_params)
+        if book 
+            render json: book, status: :created
+        else 
+            render json: {errors: book.errors.full_messages}, status: :unprocessable_entity
+        end
+    end
+    
+    private
+    def book_params
+        params.permit(:title,:author,:description)
     end
 
-    private
-    def
-        params.permit(:title,:author,:description, :list_id, :status)
-    end
 end

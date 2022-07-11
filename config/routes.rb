@@ -1,13 +1,13 @@
 Rails.application.routes.draw do
-  resources :books
+  # resources :books
 
   scope :api do
-  
-  
     # '/api/users/user_id/lists/'
     resources :users, only: [:show] do
       resources :lists, only: [:index]
+      resources :books, only: [:create]
     end
+
   end
 
 
