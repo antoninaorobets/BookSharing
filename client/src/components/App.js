@@ -4,12 +4,14 @@ import '@fontsource/roboto/300.css';
 import Login from "./LoginForm";
 import SignUp from "./SignupForm";
 import AppTopBar from "./AppTopBar";
+import Placeholder from "./Placeholder";
+import FooterBar from './FooterBar'
 import List from "./List";
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState();
   const theme = createTheme({
     palette: {
       primary: {  main: '#827397', },
@@ -33,20 +35,24 @@ function App() {
     setIsLoggedIn(true)
     setUser(userData)
   }
-  const onLogout =()=>{
-    setIsLoggedIn(false)
-    setUser({})
+  const logoutUser =()=>{
+   // setIsLoggedIn(false)
+    setUser({a: "a"})
   }
 
   return (
       <div className="App">
         <ThemeProvider theme={theme}>
-          <AppTopBar user={user} isLoggedIn={isLoggedIn} onLogout={onLogout} />
+          <AppTopBar user={user} onLogout={logoutUser} />
           <Routes>
-            <Route path="/" element={<List user={user}/>}/>
+            <Route path="/" element={ isLoggedIn
+              ? <List user={user}/>
+              : <Placeholder />
+            }/>
             <Route path="/login" element={<Login loginUser={loginUser}/>}/>
             <Route path="/signup" element={<SignUp loginUser={loginUser}/>}/>
           </Routes>
+          <FooterBar />
         </ThemeProvider>
       </div>
   );;
