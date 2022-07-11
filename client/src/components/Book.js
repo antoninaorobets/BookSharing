@@ -4,25 +4,24 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
+import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
+import Container from '@mui/material/Container';
+
 
 function Book({book}) {
     console.log("book",book)
-    // const book = {
-    //     "id": 8,
-    //     "title": "Pat the Bunny",
-    //     "author": "Dorothy Kunhardt",
-    //     "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,",
-    //     "status": null}
+
   return (
-    <Card sx={{ maxWidth: 345, mb: 3 }} style={{bgcolor: " #827397"}} >
-      {/* <CardMedia
+    <Card  sx={{ height: '100%', display: 'flex', flexDirection: 'column' }} style={{bgcolor: " #827397"}} >
+       {/* <CardMedia
         component="img"
         height="140"
-        image="/static/images/cards/contemplative-reptile.jpg"
-        alt="green iguana"
+        mage="https://source.unsplash.com/random"
+        // image="../pi78gKzxT"
+        alt="book-cover"
       /> */}
-       <CardContent>
+       <CardContent  sx={{ flexGrow: 1 }}>
         <Typography gutterBottom variant="h6" color="#827397" component="div">
           {book.title}
         </Typography>
@@ -35,9 +34,10 @@ function Book({book}) {
       </CardContent>
       <CardActions>
         <Button size="small">Request</Button>
-        <Button size="small">Learn More</Button>
+        <Button size="small">Edit</Button>
       </CardActions> 
     </Card>
+
   );
 }
 

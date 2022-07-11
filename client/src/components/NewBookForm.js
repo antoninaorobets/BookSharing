@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
-import { Container, Avatar, Button, Grid, Box, Alert, Typography, TextField, CssBaseline } from '@mui/material';
+import { Container, Divider, Avatar, Button, Grid, Box, Alert, Typography, TextField, CssBaseline } from '@mui/material';
 import MenuBookTwoToneIcon from '@mui/icons-material/MenuBookTwoTone';
 import { useNavigate, Link } from 'react-router-dom';
 
-function NewBookForm() {
+function NewBookForm({ setShowForm }) {
     const [formData, setFormData] = useState({
         title: '',
         author: '',
@@ -80,7 +80,7 @@ function NewBookForm() {
                         fullWidth
                         rows={3}
                         onChange={handleChange}
-                        />
+                    />
                     {errorMessage ? <Alert severity="error"> {errorMessage.errors}</Alert> : null}
                     <Button
                         type="submit"
@@ -91,8 +91,12 @@ function NewBookForm() {
                     >
                         Add Book
                     </Button>
+                </Box>
             </Box>
-        </Box>
+            <Button style={{ display: 'flex', margin: "auto", }} size="small" onClick={() => { setShowForm(false) }}>
+                Hide Form
+            </Button>
+            <Divider />
         </Container >
     );
 
