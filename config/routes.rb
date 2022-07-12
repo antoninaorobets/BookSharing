@@ -5,7 +5,7 @@ Rails.application.routes.draw do
     # '/api/users/user_id/lists/'
     resources :users, only: [:show] do
       resources :lists, only: [:index]
-      resources :books, only: [:create]
+      resources :books, only: [:create,:destroy, :update]
     end
 
   end

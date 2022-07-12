@@ -1,48 +1,26 @@
 import React, { useState } from 'react'
 import { Container, Divider,  Button, Grid, Box, Alert, Typography, TextField, CssBaseline } from '@mui/material';
-import {postBook} from '../api/bookApi'
+import {postBookApi, editBookApi} from '../api/bookApi'
 
-function NewBookForm({user, setShowForm,list, setList }) {
-    const [formData, setFormData] = useState({
-        title: '',
-        author: '',
-        description: ''
-    })
+function BookForm({user, setShowForm, editBook, editMode, setEditMode, SetEditBook, onSuccessCreate, onSuccessEdit}) {
     const [errorMessage, setErrorMessage] = useState('')
-    const handleChange = (e) => {
-        setFormData({
-            ...formData,
-            [e.target.name]: e.target.value
-        })
-    }
-   
+    const [title, setTitle] = useState(editBook.title)
+    const [author, setAuthor] = useState(editBook.author)
+    const [description, setDescription] = useState(editBook.description)
 
+  
     async function  handleSubmit(e)  {
         e.preventDefault()
-        const onSuccess =(book)=>{
-            setList([...list,book])
-            setShowForm(false)
+        const formData = {
+                    "title": title,
+                    "author": author,
+                    "description":description
+                }
+        if (editMode) {
+            editBookApi(user, editBook.id, formData, onSuccessEdit)          
+        } else {
+            postBookApi(user, formData, onSuccessCreate)          
         }
-        const newBook = await postBook(user, formData, onSuccess)          
-        
-        
-       
-        // fetch(`/api/users/${user.id}/books/`, {
-        //     method: "POST",
-        //     headers: { "Content-Type": "application/json" },
-        //     body: JSON.stringify(formData)
-        // }).then(responce => {
-        //     if (responce.ok) {
-        //         responce.json().then(book => {                  
-        //             setList([...list,book])
-        //             setShowForm(false)
-        //             return <Alert severity="success">This is a success alert — check it out!</Alert>
-        //         })
-        //     } else {
-        //         responce.json().then(error => setErrorMessage(error))
-        //     }
-        // })
-
         e.target.reset()
     }
 
@@ -66,26 +44,27 @@ function NewBookForm({user, setShowForm,list, setList }) {
                         size="small"
                         fullWidth
                         label="Book Title"
-                        name="title"
                         autoFocus
-                        onChange={handleChange}
+                        onChange={(e)=>setTitle(e.target.value)}
+                        defaultValue={editBook.title}
+                       
                     />
                     <TextField
                         margin="normal"
                         size="small"
                         fullWidth
-                        name="author"
-                        label="Bool Author"
-                        onChange={handleChange}
+                        label="Book Author"
+                        onChange={(e)=>setAuthor(e.target.value)}
+                        value={author}
                     />
                     <TextField
                         margin="normal"
                         label="Description"
-                        name="description"
                         multiline
                         fullWidth
                         rows={3}
-                        onChange={handleChange}
+                        onChange={(e)=>setDescription(e.target.value)}
+                        defaultValue={editBook.description}
                     />
                     {errorMessage ? <Alert severity="error"> {errorMessage.errors}</Alert> : null}
                     <Button
@@ -99,7 +78,16 @@ function NewBookForm({user, setShowForm,list, setList }) {
                     </Button>
                 </Box>
             </Box>
-            <Button style={{ display: 'flex', margin: "auto", }} size="small" onClick={() => { setShowForm(false) }}>
+            <Button style={{ display: 'flex', margin: "auto", }} size="small" onClick={() => { 
+                setShowForm(false); 
+                setEditMode(false);
+                SetEditBook({
+                    "id": '',
+                    "title": "",
+                    "author": "",
+                    "description": ""
+                })
+                 }}>
                 Hide Form
             </Button>
             <Divider />
@@ -108,4 +96,4 @@ function NewBookForm({user, setShowForm,list, setList }) {
 
 }
 
-export default NewBookForm
+export default BookForm

@@ -3,15 +3,21 @@ import Stack from '@mui/material/Stack';
 import React, { useEffect, useState } from 'react'
 import Book from './Book'
 import Container from '@mui/material/Container';
-import NewBookForm from './NewBookForm'
+import BookForm from './BookForm'
 import BooksControls from './BooksControls'
 import TextField from '@mui/material/TextField';
-import {deleteBook} from '../api/bookApi'
+import {deleteBookApi} from '../api/bookApi'
 
 function List({ user }) {
     const [list, setList] = useState([])
     const [isLoading, setLoading] = useState(true);
     const [showForm, setShowForm] = useState(false)
+    const [editMode, setEditMode] = useState(false)
+    const [editBook, SetEditBook] = useState({
+        "title": "",
+        "author": "",
+        "description": ""
+    })
     useEffect(() => {
         if (!user) return
         fetch(`/api/users/${user.id}/lists`)
@@ -19,7 +25,6 @@ function List({ user }) {
                 if (responce.ok) {
                     responce.json()
                         .then(data => {
-                            console.log(data[0])
                             setList(data[0].books)
                             setLoading(false)
                         })
@@ -29,14 +34,51 @@ function List({ user }) {
                 }
             })
     }, [user])
-
-    const handleDelete =(id)=>{
-        deleteBook(user, id)
-        
+   
+    const onSuccessCreate =(book)=>{
+        setList([...list,book])
+        setShowForm(false)
     }
+
+    const onSuccessEdit = (editedBook)=>{
+        setShowForm(false)
+        const updatedList = list.map(book => {
+            if (book.id !== editedBook.id) {
+                return editedBook 
+            }
+            else {
+                return book
+            }}) 
+        setList(updatedList)
+    }
+
+    const onSuccessDelete = (id)=>{
+        const filteredList = list.filter(book => book.id !== id) 
+        setList(filteredList)
+    }
+    const handleDelete =(id)=>{
+        deleteBookApi(user, id, onSuccessDelete)
+    }
+
+    const handleEditButton = (id) => {
+        const book = list.find(book => book.id === id) 
+        SetEditBook(book)
+        console.log("editedbook", editBook)
+        setEditMode(true)
+        setShowForm(true)
+      }
+
     let booksList
     if (!isLoading) {
-        booksList = list.map(book => <Grid item xs={12} sm={6} md={4} ><Book key={book.id} book={book} handleDelete={handleDelete} /></Grid>)
+        booksList = list.map(book => 
+        <Grid item xs={12} sm={6} md={4} >
+            <Book 
+                key={book.id} 
+                book={book} 
+                handleDelete={handleDelete} 
+                handleEdit={handleEditButton}
+                />
+        </Grid>)
     }
 
     return (
@@ -61,8 +103,16 @@ function List({ user }) {
                     </Typography>
                     <Container maxWidth="sm">
                         {showForm
-                            ? <NewBookForm setShowForm={setShowForm} user={user} list={list} setList={setList}/>
-                            : <BooksControls setShowForm={setShowForm} />}
+                            ? <BookForm 
+                                setShowForm={setShowForm} 
+                                editBook={editBook} 
+                                SetEditBook={SetEditBook}
+                                editMode={editMode} 
+                                setEditMode={setEditMode}
+                                user={user} 
+                                onSuccessCreate={onSuccessCreate}
+                                />
+                            : <BooksControls setShowForm={setShowForm}/>}
                     </Container>
                 </Container>
             </Box>
