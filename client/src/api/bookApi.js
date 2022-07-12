@@ -12,7 +12,7 @@ function bookApi(prop) {
 export default bookApi
 
 
-export async function postBook(user, formData, onSuccess){
+export async function postBookApi(user, formData, onSuccessCreate){
     console.log('bookAPI')
      return fetch(`/api/users/${user.id}/books/`, {
             method: "POST",
@@ -20,7 +20,7 @@ export async function postBook(user, formData, onSuccess){
             body: JSON.stringify(formData)
         }).then(responce => {
             if (responce.ok) {
-                responce.json().then(book => onSuccess(book))
+                responce.json().then(book => onSuccessCreate(book))
             } else {
                 responce.json().then(error => error)
             }
@@ -29,7 +29,23 @@ export async function postBook(user, formData, onSuccess){
 }
 
 
-export async function deleteBook(user, book_id){
+export async function editBookApi(user, book_id, formData, onSuccessEdit){
+    console.log('bookAPI')
+     return fetch(`/api/users/${user.id}/books/${book_id}`, {
+            method: "PATCH",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(formData)
+        }).then(responce => {
+            if (responce.ok) {
+                responce.json().then(() => onSuccessEdit(book_id))
+            } else {
+                responce.json().then(error => error)
+            }
+        })
+   
+}
+
+export async function deleteBookApi(user, book_id, onSuccessDelete){
     console.log('bookAPI')
      return fetch(`/api/users/${user.id}/books/${book_id}`, {
             method: "DELETE",
@@ -37,7 +53,7 @@ export async function deleteBook(user, book_id){
             body: JSON.stringify()
         }).then(responce => {
             if (responce.ok) {
-                responce.json().then(book => console.log(book))
+                responce.json().then(() => onSuccessDelete(book_id))
             } else {
                 responce.json().then(error => error)
             }
