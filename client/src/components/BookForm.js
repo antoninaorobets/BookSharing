@@ -8,6 +8,20 @@ function BookForm({user, setShowForm, editBook, editMode, setEditMode, SetEditBo
     const [author, setAuthor] = useState(editBook.author)
     const [description, setDescription] = useState(editBook.description)
 
+    let formTexts
+    if (editMode) {
+        formTexts = {
+            formTitle: "Edit Book",
+            formSubmit : "Save Changes", 
+            formClose: "Cancel"
+        }
+    } else {
+        formTexts = {
+            formTitle: "Add New Book",
+            formSubmit: "Add Book", 
+            formClose: "Cancel"
+        }
+    }
   
     async function  handleSubmit(e)  {
         e.preventDefault()
@@ -36,7 +50,7 @@ function BookForm({user, setShowForm, editBook, editMode, setEditMode, SetEditBo
                 }}
             >
                 <Typography component="h6" variant="h5" color='#5F5B5B'>
-                    Add New Book
+                    {formTexts.formTitle}
                 </Typography>
                 <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
                     <TextField
@@ -74,7 +88,7 @@ function BookForm({user, setShowForm, editBook, editMode, setEditMode, SetEditBo
                         variant="contained"
                         sx={{ mt: 3, mb: 2 }}
                     >
-                        Add Book
+                        {formTexts.formSubmit}
                     </Button>
                 </Box>
             </Box>
@@ -88,7 +102,7 @@ function BookForm({user, setShowForm, editBook, editMode, setEditMode, SetEditBo
                     "description": ""
                 })
                  }}>
-                Hide Form
+                {formTexts.formClose}
             </Button>
             <Divider />
         </Container >
