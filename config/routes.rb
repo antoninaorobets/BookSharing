@@ -1,16 +1,18 @@
 Rails.application.routes.draw do
-  # resources :books
+  
+  
 
   scope :api do
     # '/api/users/user_id/lists/'
     resources :users, only: [:show] do
       resources :lists, only: [:index]
       resources :books, only: [:create,:destroy, :update]
+      resources :shared_lists, only: [:index, :create, :destroy]
     end
 
   end
 
-
+  get '/api/lists/:hash', to: 'lists#show'
   post '/api/signup', to: 'users#create'
   get '/api/me', to:'users#show'
   post '/api/login', to: 'sessions#create'

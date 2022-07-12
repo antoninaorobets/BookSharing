@@ -1,12 +1,11 @@
-import { Grid, Box, Button, Divider, Typography } from '@mui/material'
-import Stack from '@mui/material/Stack';
+import { Grid, Box, Button, Typography } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import Book from './Book'
 import Container from '@mui/material/Container';
 import BookForm from './BookForm'
 import BooksControls from './BooksControls'
-import TextField from '@mui/material/TextField';
 import {deleteBookApi} from '../api/bookApi'
+import {getMyListApi} from '../api/listApi'
 
 function List({ user }) {
     const [list, setList] = useState([])
@@ -20,29 +19,21 @@ function List({ user }) {
     })
     useEffect(() => {
         if (!user) return
-        fetch(`/api/users/${user.id}/lists`)
-            .then(responce => {
-                if (responce.ok) {
-                    responce.json()
-                        .then(data => {
-                            setList(data[0].books)
-                            setLoading(false)
-                        })
-                }
-                else {
-                    responce.json().then(error => console.error(error))
-                }
-            })
+        getMyListApi(user, onSuccessGetList) 
     }, [user])
-   
+
+    const onSuccessGetList = (data) => {
+        setList(data)
+        setLoading(false)
+    }
     const onSuccessCreate =(book)=>{
-        setList([...list,book])
+        setList([...list.books,book])
         setShowForm(false)
     }
-
+//  ???????
     const onSuccessEdit = (editedBook)=>{
         setShowForm(false)
-        const updatedList = list.map(book => {
+        const updatedList = list.books.map(book => {
             if (book.id !== editedBook.id) {
                 return editedBook 
             }
@@ -53,7 +44,7 @@ function List({ user }) {
     }
 
     const onSuccessDelete = (id)=>{
-        const filteredList = list.filter(book => book.id !== id) 
+        const filteredList = list.books.filter(book => book.id !== id) 
         setList(filteredList)
     }
     const handleDelete =(id)=>{
@@ -61,7 +52,7 @@ function List({ user }) {
     }
 
     const handleEditButton = (id) => {
-        const book = list.find(book => book.id === id) 
+        const book = list.books.find(book => book.id === id) 
         SetEditBook(book)
         console.log("editedbook", editBook)
         setEditMode(true)
@@ -69,8 +60,10 @@ function List({ user }) {
       }
 
     let booksList
+    let ln
     if (!isLoading) {
-        booksList = list.map(book => 
+        ln = list.books.length
+        booksList = list.books.map(book => 
         <Grid item xs={12} sm={6} md={4} >
             <Book 
                 key={book.id} 
@@ -79,8 +72,8 @@ function List({ user }) {
                 handleEdit={handleEditButton}
                 />
         </Grid>)
-    }
 
+    }
     return (
         <div>
             <Box
@@ -97,9 +90,18 @@ function List({ user }) {
                         align="center"
                         color="text.primary"
                         gutterBottom
-                        sx={{ marginBottom: 6, color : "#5F5B5B" }}
+                        sx={{ mb: 4, color : "#5F5B5B" }}
                     >
                         Books you share
+                    </Typography>
+                    <Typography align="center" color="text.secondary" paragraph sx={{ marginBottom: 4}}>
+                        There are {ln} books on your list. Please copy the link and send it to your friend to share these books.
+                        <Button
+                            onClick={() => {
+                                console.log("coppied", `http://localhost:4000/shared_list/${list.id}`)
+                                navigator.clipboard.writeText(`http://localhost:4000/shared_list/${list.id}`)}}>
+                            Copy share link
+                        </Button>
                     </Typography>
                     <Container maxWidth="sm">
                         {showForm

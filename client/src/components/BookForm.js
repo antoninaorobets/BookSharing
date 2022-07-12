@@ -43,7 +43,7 @@ function BookForm({user, setShowForm, editBook, editMode, setEditMode, SetEditBo
             <CssBaseline />
             <Box
                 sx={{
-                    marginTop: 8,
+                    marginTop: 6,
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'center',

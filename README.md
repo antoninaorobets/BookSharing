@@ -29,3 +29,7 @@ Shared Books - page where user can see his friends books which he can request
 	Request a Book - form to request a selected book
 Requests  - page with list of received and sent rwequests
 login  
+
+
+TO DOs
+- manage errors
