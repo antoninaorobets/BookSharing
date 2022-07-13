@@ -7,7 +7,7 @@ Rails.application.routes.draw do
     resources :users, only: [:show] do
       resources :lists, only: [:index]
       resources :books, only: [:create,:destroy, :update]
-      resources :shared_lists, only: [:index, :create, :destroy]
+      resources :shared_lists, only: [:index, :show, :create, :destroy]
     end
 
   end

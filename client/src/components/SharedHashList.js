@@ -1,37 +1,42 @@
-import { Grid, Box, Button, Typography } from '@mui/material'
+import { Grid, Alert, Box, Button, Typography } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import Book from './Book'
 import Container from '@mui/material/Container';
-import BookForm from './BookForm'
-import BooksControls from './BooksControls'
-import {deleteBookApi} from '../api/bookApi'
-import {showSharedListApi} from '../api/listApi'
+import { showSharedListApi, checkIfSavedApi, createSharedListApi } from '../api/listApi'
 import PlaceholderIsLoading from './PlaceholderIsLoading'
 import { useParams } from 'react-router-dom';
 
-function SharedHashList() {
+function SharedHashList({ user }) {
     const [list, setList] = useState([])
     const [isLoading, setLoading] = useState(true);
-    const [showForm, setShowForm] = useState(false)
+    const [errorMessage, setErrorMessage] = useState(false)
+    const [savedList, setSavedList] = useState(false)
     const { hash } = useParams()
-    console.log(hash)
     useEffect(() => {
-        showSharedListApi(hash, onSuccessGetList) 
+        showSharedListApi(hash, onSuccessGetList)
     }, [])
+    useEffect(() => {
+        if (user) {
+            checkIfSavedApi(user, hash, setSavedList)
+        }
+    }, [user])
 
     const onSuccessGetList = (data) => {
         setList(data)
         setLoading(false)
-       
     }
-    // const onSuccessCreate =(book)=>{
-    //     setList([...list.books,book])
-    //     setShowForm(false)
-    // }
-// 
+    const onSuccessCreate = (data) => {
+        setSavedList(true)
+    }
 
-
-
+    const onSave = () => {
+        if (user & !savedList) {
+            createSharedListApi(user, list, setSavedList)
+        }
+        else {
+            setErrorMessage(<Alert severity="error">Please Log in</Alert>)
+        }
+    }
 
     let booksList
     let ln
@@ -39,25 +44,24 @@ function SharedHashList() {
     if (!isLoading) {
         name = list.user.name
         ln = list.books.length
-        booksList = list.books.map(book => 
-        <Grid item xs={12} sm={6} md={4} >
-            <Book 
-                key={book.id} 
-                book={book} 
+        booksList = list.books.map(book =>
+            <Grid item xs={12} sm={6} md={4} >
+                <Book
+                    key={book.id}
+                    book={book}
                 // handleDelete={handleDelete} 
                 // handleEdit={handleEditButton}
                 />
-        </Grid>)
-
+            </Grid>)
     }
     return (
         <div>
-            {isLoading ? <PlaceholderIsLoading/> : null}
+            {isLoading ? <PlaceholderIsLoading /> : null}
             <Box
                 sx={{
                     bgcolor: 'background.paper',
-                    pt: 8,
-                    pb: 6,
+                    pt: 6,
+                    pb: 2,
                 }}
             >
                 <Container maxWidth="sm">
@@ -67,30 +71,41 @@ function SharedHashList() {
                         align="center"
                         color="text.primary"
                         gutterBottom
-                        sx={{ mb: 4, color : "#5F5B5B" }}
+                        sx={{ mb: 2, color: "#5F5B5B" }}
                     >
-                        {name}'s list 
+                        {name}'s list
                     </Typography>
-                    <Typography 
-                        align="center" 
-                        color="text.secondary" 
-                        paragraph 
-                        display='flex'
-                        justifyContent="center">
-                        There are {ln} books on this list. You can find it in you Shared Lists (if you are logged in).            
-                    </Typography>
-                    <Button 
-                            variant="contained"
-                            size="smal"
-                            fullWidth
-                            onClick={() => {
-                                console.log("coppied", `http://localhost:3000/api/lists/${list.id}`)
-                                navigator.clipboard.writeText(`http://localhost:3000/api/lists/${list.id}`)}}>
-                            Save List / Log in ?
-                        </Button>
+                    {savedList
+                        ? <Typography 
+                            align="center"  
+                            color="text.secondary"
+                            variant="subtitle1">
+                                These books are in your SHARED tab
+                            </Typography>
+                        : <Container>
+                            <Typography
+                                align="center"
+                                color="text.secondary"
+                                paragraph
+                                display='flex'
+                                justifyContent="center">
+                                This list of {ln} books is created and shared by {name}. You can save it to youe shared Lists.
+                            </Typography>
+                            <Box component="span" sx={{ width: "100%", display: "flex", justifyContent: "center" }}>
+                                <Button direction="row"
+                                    variant="contained"
+                                    size="smal"
+                                    sx={{ pl: 8, pr: 8 }}
+                                    onClick={() => onSave()}>
+                                    Save
+                                </Button>
+
+                            </Box>
+                        </Container>
+                    }
+                    {errorMessage}
                 </Container>
             </Box>
-
             <Container sx={{ py: 4 }} maxWidth="md">
                 <Grid container spacing={4}>
                     {booksList}
@@ -100,4 +115,4 @@ function SharedHashList() {
     )
 }
 
-export default  SharedHashList 
+export default SharedHashList 

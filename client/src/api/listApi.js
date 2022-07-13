@@ -30,7 +30,7 @@ export function showSharedListApi( hash, onSuccessGetList) {
     })
   }
 
-  export function getAllSharedListsApi( user, onSuccessGetList) {
+  export function getAllSharedListsApi(user, onSuccessGetList) {
     return  fetch(`/api/users/${user.id}/shared_lists/`)
     .then(responce => {
         if (responce.ok) {
@@ -45,3 +45,35 @@ export function showSharedListApi( hash, onSuccessGetList) {
     })
   }
   
+  export function createSharedListApi(user,list, onSuccessCreate)  {
+    return fetch(`/api/users/${user.id}/shared_lists/`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({list_id : list.id})
+  }).then(responce => {
+      if (responce.ok) {
+          responce.json().then(data => onSuccessCreate(data))
+      } else {
+          responce.json().then(error => error)
+      }
+  })
+  }
+
+
+  export function checkIfSavedApi(user, hash, setSavedList) {
+    console.log("check if saved")
+    return  fetch(`/api/users/${user.id}/shared_lists/${hash}`)
+    .then(responce => {
+        if (responce.ok) {
+            responce.json()
+                .then(data => {
+                  setSavedList(true)
+                })
+        }
+        else {
+            responce.json().then(error => {
+              setSavedList(false)
+              console.error(error)})
+        }
+    })
+  }
