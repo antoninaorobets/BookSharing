@@ -31,7 +31,6 @@ export function showSharedListApi( hash, onSuccessGetList) {
   }
 
   export function getAllSharedListsApi( user, onSuccessGetList) {
-    console.log("from ipa", user.id)
     return  fetch(`/api/users/${user.id}/shared_lists/`)
     .then(responce => {
         if (responce.ok) {

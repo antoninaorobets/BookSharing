@@ -7,7 +7,7 @@ import AppTopBar from "./AppTopBar";
 import Placeholder from "./PlaceholderNotLoggedIn";
 import FooterBar from './FooterBar'
 import List from "./List";
-import SharedList from './SharedList'
+import SharedLists from './SharedLists'
 import SharedHashList from './SharedHashList'
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 
@@ -54,7 +54,7 @@ function App() {
             <Route path="/login" element={<Login loginUser={loginUser}/>}/>
             <Route path="/signup" element={<SignUp loginUser={loginUser}/>}/>
             <Route path="/shared/:hash" element={<SharedHashList/>}/>
-            <Route path="/shared/" element={<SharedList user={user}/>}/>
+            <Route path="/shared/" element={<SharedLists user={user}/>}/>
           </Routes>
           <FooterBar />
         </ThemeProvider>

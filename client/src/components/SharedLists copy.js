@@ -8,57 +8,46 @@ import {deleteBookApi} from '../api/bookApi'
 import {showSharedListApi, getAllSharedListsApi} from '../api/listApi'
 import PlaceholderIsLoading from './PlaceholderIsLoading'
 import { useParams } from 'react-router-dom';
+import ListTab from './ListsTab'
 
-
-function SharedList({user }) {
-    const [list, setList] = useState([])
+function SharedLists({user}) {
+    const [lists, setLists] = useState([])
     const [isLoading, setLoading] = useState(true);
-    const [showForm, setShowForm] = useState(false)
-    const { hash } = useParams()
-    console.log(hash)
+
     useEffect(() => {
-        if (hash){ 
-            showSharedListApi(hash, onSuccessGetList) 
-        } else if (!user) return
-        else {
+        if (!user) return
             console.log("user",user)
             getAllSharedListsApi( user, onSuccessGetList)
-        } 
     }, [user])
 
     const onSuccessGetList = (data) => {
-        setList(data)
+        setLists(data)
         setLoading(false)
         console.log(data)
     }
-    // const onSuccessCreate =(book)=>{
-    //     setList([...list.books,book])
-    //     setShowForm(false)
-    // }
-// 
-
-
-
 
     let booksList
-    let ln
+    let tabs
     let name
-    if (!isLoading) {
-        name = list.user.name
-        ln = list.books.length
-        booksList = list.books.map(book => 
-        <Grid item xs={12} sm={6} md={4} >
-            <Book 
-                key={book.id} 
-                book={book} 
-                // handleDelete={handleDelete} 
-                // handleEdit={handleEditButton}
-                />
-        </Grid>)
-
+     if (!isLoading) {
+        tabs = <ListTab lists={lists}/>
+    //     // name = list.user.name
+    //     listsNumber = lists.length
+    //     booksList = lists.books.map(book => 
+    //     <Grid item xs={12} sm={6} md={4} >
+    //         <Book 
+    //             key={book.id} 
+    //             book={book} 
+    //             // handleDelete={handleDelete} 
+    //             // handleEdit={handleEditButton}
+    //             />
+    //     </Grid>)
+    //
     }
     return (
         <div>
+            
+            {tabs}
             {isLoading ? <PlaceholderIsLoading/> : null}
             <Box
                 sx={{
@@ -84,15 +73,15 @@ function SharedList({user }) {
                         paragraph 
                         display='flex'
                         justifyContent="center">
-                        There are {ln} books on this list. You can find it in you Shared Lists (if you are logged in).            
+                        There are books on this list. You can find it in you Shared Lists (if you are logged in).            
                     </Typography>
                     <Button 
                             variant="contained"
                             size="smal"
                             fullWidth
                             onClick={() => {
-                                console.log("coppied", `http://localhost:3000/api/lists/${list.id}`)
-                                navigator.clipboard.writeText(`http://localhost:3000/api/lists/${list.id}`)}}>
+                                console.log("coppied", `http://localhost:3000/api/lists/${lists.id}`)
+                                navigator.clipboard.writeText(`http://localhost:3000/api/lists/${lists.id}`)}}>
                             Save List / Log in ?
                         </Button>
                 </Container>
@@ -107,4 +96,4 @@ function SharedList({user }) {
     )
 }
 
-export default SharedList
+export default SharedLists
