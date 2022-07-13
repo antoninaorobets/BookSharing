@@ -3,8 +3,9 @@ class SharedListsController < ApplicationController
 
      # '/api/users/user_id/shared_lists/
     def index
-        lists = User.find(params[:user_id]).shared_lists
-        render json: lists, status: :ok
+        shared_lists = User.find(params[:user_id]).shared_lists
+        # puts User.find(3).shared_lists.first.list.user.name
+        render json: shared_lists, status: :ok, include: ['list','books', 'list.user']
     end
 
     def create

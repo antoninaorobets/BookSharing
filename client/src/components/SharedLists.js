@@ -37,7 +37,10 @@ function SharedLists({ user }) {
     let allbooks =[]
     let ln = "3"
     if (!isLoading) {
-        tabs = lists.map((list,index) => <Tab key={index} value={index} label={list.id} />)
+        tabs = lists.map((list,index) => {
+            const lable = list.list.user.name+ "'s list"
+            return <Tab key={index} value={index} label={lable} />
+        })
         if (selectedList === "all") {
             lists.forEach(list => allbooks = [].concat(allbooks, list.books))
         } else {
@@ -70,25 +73,8 @@ function SharedLists({ user }) {
                     </Tabs>
                 </Box>
             </Box >
+            
             {isLoading ? <PlaceholderIsLoading /> : null}
-            <Box
-                sx={{
-                    bgcolor: 'background.paper',
-                    pt: 4,
-                    pb: 3,
-                }}
-            >
-                <Container maxWidth="sm">
-                    <Typography
-                        align="center"
-                        color="text.secondary"
-                        paragraph
-                        display='flex'
-                        justifyContent="center">
-                        There are {ln} books on this list. You can find it in you Shared Lists (if you are logged in).
-                    </Typography>
-                </Container>
-            </Box>
 
             <Container sx={{ py: 4 }} maxWidth="md">
                 <Grid container spacing={4}>
