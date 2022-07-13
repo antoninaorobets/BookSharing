@@ -12,53 +12,50 @@ import SharedHashList from './SharedHashList'
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState();
   const theme = createTheme({
     palette: {
-      primary: {  main: '#827397', },
-      secondary: { main: '#edf2ff',},
-      info: {  main: '#5F5B5B',},
+      primary: { main: '#827397', },
+      secondary: { main: '#edf2ff', },
+      info: { main: '#5F5B5B', },
     },
   });
   useEffect(() => {
     fetch('/api/me')
-    .then(responce => {
-      if (responce.ok) {
-        responce.json().then(user => {
-          setIsLoggedIn(true)
-          setUser(user)})
-      } else {
-        responce.json().then(error => console.error(error))
-      }
-    })
-  },[])
-  const loginUser = (userData) =>{
-    setIsLoggedIn(true)
+      .then(responce => {
+        if (responce.ok) {
+          responce.json().then(user => {
+            setUser(user)
+          })
+        } else {
+          responce.json().then(error => console.error(error))
+        }
+      })
+  }, [])
+  const loginUser = (userData) => {
     setUser(userData)
   }
-  const logoutUser =()=>{
-   // setIsLoggedIn(false)
-    setUser({a: "a"})
+  const logoutUser = () => {
+    setUser()
   }
 
   return (
-      <div className="App">
-        <ThemeProvider theme={theme}>
-          <AppTopBar user={user} onLogout={logoutUser} />
-          <Routes>
-            <Route path="/" element={ isLoggedIn
-              ? <List user={user}/>
-              : <Placeholder />
-            }/>
-            <Route path="/login" element={<Login loginUser={loginUser}/>}/>
-            <Route path="/signup" element={<SignUp loginUser={loginUser}/>}/>
-            <Route path="/shared/:hash" element={<SharedHashList/>}/>
-            <Route path="/shared/" element={<SharedLists user={user}/>}/>
-          </Routes>
-          <FooterBar />
-        </ThemeProvider>
-      </div>
+    <div className="App">
+      <ThemeProvider theme={theme}>
+        <AppTopBar user={user} onLogout={logoutUser} />
+        <Routes>
+          <Route path="/" element={user
+            ? <List user={user} />
+            : <Placeholder />
+          } />
+          <Route path="/login" element={<Login loginUser={loginUser} />} />
+          <Route path="/signup" element={<SignUp loginUser={loginUser} />} />
+          <Route path="/shared_list/:hash" element={<SharedHashList user={user} />} />
+          <Route path="/shared/" element={<SharedLists user={user} />} />
+        </Routes>
+        <FooterBar />
+      </ThemeProvider>
+    </div>
   );;
 }
 

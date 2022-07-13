@@ -42,7 +42,7 @@ function AppTopBar({ user, onLogout }) {
         <Typography variant="h6" color="#5F5B5B" noWrap sx={{ flexGrow: 1 }}>
           Books Sharing
         </Typography>
-        {!!user
+        {user
           ? <nav>
             <NavLink
               style={linkStyle}

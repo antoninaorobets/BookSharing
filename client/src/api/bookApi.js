@@ -13,7 +13,6 @@ export default bookApi
 
 
 export async function postBookApi(user, formData, onSuccessCreate){
-    console.log('bookAPI')
      return fetch(`/api/users/${user.id}/books/`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -30,7 +29,6 @@ export async function postBookApi(user, formData, onSuccessCreate){
 
 
 export async function editBookApi(user, book_id, formData, onSuccessEdit){
-    console.log('bookAPI')
      return fetch(`/api/users/${user.id}/books/${book_id}`, {
             method: "PATCH",
             headers: { "Content-Type": "application/json" },
@@ -46,7 +44,6 @@ export async function editBookApi(user, book_id, formData, onSuccessEdit){
 }
 
 export async function deleteBookApi(user, book_id, onSuccessDelete){
-    console.log('bookAPI')
      return fetch(`/api/users/${user.id}/books/${book_id}`, {
             method: "DELETE",
             headers: { "Content-Type": "application/json" },

@@ -33,3 +33,4 @@ login
 
 TO DOs
 - manage errors
+- return user on shared list after login if they go to login page from Save List, 

@@ -113,6 +113,7 @@ function List({ user }) {
                                 setEditMode={setEditMode}
                                 user={user} 
                                 onSuccessCreate={onSuccessCreate}
+                                onSuccessEdit={onSuccessEdit}
                                 />
                             : <BooksControls setShowForm={setShowForm}/>}
                     </Container>
