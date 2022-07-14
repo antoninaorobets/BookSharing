@@ -35,7 +35,7 @@ export async function editBookApi(user, book_id, formData, onSuccessEdit){
             body: JSON.stringify(formData)
         }).then(responce => {
             if (responce.ok) {
-                responce.json().then(() => onSuccessEdit(book_id))
+                responce.json().then((book) => onSuccessEdit(book))
             } else {
                 responce.json().then(error => error)
             }

@@ -8,6 +8,7 @@ import {deleteBookApi} from '../api/bookApi'
 import {getMyListApi} from '../api/listApi'
 
 function List({ user }) {
+    console.log("rerender component")
     const [list, setList] = useState([])
     const [isLoading, setLoading] = useState(true);
     const [showForm, setShowForm] = useState(false)
@@ -27,34 +28,38 @@ function List({ user }) {
         setLoading(false)
     }
     const onSuccessCreate =(book)=>{
-        setList([...list.books,book])
+        list.books = [...list.books,book]
+        setList(list)
         setShowForm(false)
     }
-//  ???????
+
     const onSuccessEdit = (editedBook)=>{
-        setShowForm(false)
-        const updatedList = list.books.map(book => {
-            if (book.id !== editedBook.id) {
+        setShowForm(false)        
+        const updatedBookList = list.books.map((book,index) => {
+            if (book.id === editedBook.id) {
                 return editedBook 
             }
-            else {
-                return book
-            }}) 
-        setList(updatedList)
+            return book  
+        }) 
+        list.books =updatedBookList
+        setList(list)
     }
 
     const onSuccessDelete = (id)=>{
         const filteredList = list.books.filter(book => book.id !== id) 
-        setList(filteredList)
+        list.books = filteredList
+        setList(list)
+
+        setLoading(false)
     }
     const handleDelete =(id)=>{
+        setLoading(true)
         deleteBookApi(user, id, onSuccessDelete)
     }
 
     const handleEditButton = (id) => {
         const book = list.books.find(book => book.id === id) 
         SetEditBook(book)
-        console.log("editedbook", editBook)
         setEditMode(true)
         setShowForm(true)
       }
@@ -72,7 +77,6 @@ function List({ user }) {
                 handleEdit={handleEditButton}
                 />
         </Grid>)
-
     }
     return (
         <div>
@@ -114,6 +118,7 @@ function List({ user }) {
                                 user={user} 
                                 onSuccessCreate={onSuccessCreate}
                                 onSuccessEdit={onSuccessEdit}
+                               
                                 />
                             : <BooksControls setShowForm={setShowForm}/>}
                     </Container>
