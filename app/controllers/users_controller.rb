@@ -27,6 +27,6 @@ class UsersController < ApplicationController
         params.permit(:name, :email, :password, :password_confirmation)
     end
     def render_record_not_found
-        render json: {errors: "Book not found"}, status: :not_found
+        render json: {errors: "User not found"}, status: :not_found
     end
 end

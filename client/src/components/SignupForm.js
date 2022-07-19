@@ -14,6 +14,7 @@ import Container from '@mui/material/Container';
 import MenuBookTwoToneIcon from '@mui/icons-material/MenuBookTwoTone';
 import { deepOrange, indigo } from '@mui/material/colors';
 import validator from 'validator'
+import { signUpApi } from '../api/userApi';
 
 
 export default function SignUp({ loginUser }) {
@@ -32,25 +33,19 @@ export default function SignUp({ loginUser }) {
             [e.target.name]: e.target.value
         })
     }
+    const onSuccessSignUp = (user) => {
+        setFormData(emptyForm)
+        loginUser(user)
+        navigate('/')
+    }
+    const onFailedSignUp = (error) => {
+        setFormData(emptyForm)
+        setErrorMessage(error.errors)
+    }
     const handleSubmit = (e) => {
         e.preventDefault()
         if (formData.password.length >= 8) {
-            fetch('/api/signup', {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(formData)
-            }).then(responce => {
-                if (responce.ok) {
-                    responce.json().then(user => {
-                        setFormData(emptyForm)
-                        loginUser(user)
-                        navigate('/')
-                    })
-                } else {
-                    responce.json().then(error => setErrorMessage(error.errors))
-                    setFormData(emptyForm)
-                }
-            })
+            signUpApi(formData, onSuccessSignUp, onFailedSignUp)
         } else {
             setErrorMessage("Password mast bee at list 8 characters long")
             setFormData(emptyForm)

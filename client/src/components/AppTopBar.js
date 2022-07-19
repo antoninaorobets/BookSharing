@@ -4,7 +4,7 @@ import { NavLink, Link } from 'react-router-dom'
 import InsertEmoticonOutlinedIcon from '@mui/icons-material/InsertEmoticonOutlined';
 
 
-function AppTopBar({ user, onLogout }) {
+function AppTopBar({ user, setUser }) {
 
   const linkStyle = ({ isActive }) => ({
     color: isActive ?'#827397' : "#5F5B5B",
@@ -24,7 +24,7 @@ function AppTopBar({ user, onLogout }) {
     }).then(responce => {
       if (responce.ok){
         responce.json().then(data => console.log("logged out", data))
-        onLogout()
+        setUser()
       }
       else {
         responce.json().then(error => console.error(error))

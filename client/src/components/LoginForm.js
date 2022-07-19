@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import { Container, Avatar, Button, Grid, Box, Alert, Typography, TextField, CssBaseline } from '@mui/material';
 import MenuBookTwoToneIcon from '@mui/icons-material/MenuBookTwoTone';
 import { useNavigate, Link } from 'react-router-dom';
+import { logInApi } from '../api/userApi';
 
 function Login({ loginUser }) {
   const [formData, setFormData] = useState({
@@ -18,24 +19,15 @@ function Login({ loginUser }) {
       [e.target.name]: e.target.value
     })
   }
+  const onSuccessLogIn = (user) =>{
+    setFormData()
+    loginUser(user)
+    navigate('/')
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    fetch('/api/login', {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(formData)
-    }).then(responce => {
-      if (responce.ok) {
-        responce.json().then(user => {
-          setFormData()
-          loginUser(user)
-          navigate('/')
-        })
-      } else {
-        responce.json().then(error => setErrorMessage(error))
-      }
-    })
+    logInApi (formData, onSuccessLogIn, setErrorMessage)
     e.target.reset()
   }
 
