@@ -75,7 +75,7 @@ function AppTopBar({ user, onLogout }) {
               "textDecoration": 'none' }}
               to="/"
             >
-              You loged in as {user.name}
+              You logged in as {user.name}
             </NavLink>
             <Button variant="outlined" onClick={handleLogout} sx={{ my: 1, mx: 1.5 }}> Logout </Button>
           </nav>

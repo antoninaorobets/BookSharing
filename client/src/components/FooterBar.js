@@ -13,7 +13,7 @@ function FooterBar() {
       color="text.secondary"
       component="p"
     >
-      The Book Sharing applicatin, 2022
+      The Book Sharing application, 2022
     </Typography>
 
   </Box>
