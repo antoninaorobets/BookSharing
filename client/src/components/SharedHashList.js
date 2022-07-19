@@ -30,7 +30,7 @@ function SharedHashList({ user }) {
     }
 
     const onSave = () => {
-        if (user & !savedList) {
+        if (user && !savedList) {
             createSharedListApi(user, list, setSavedList)
         }
         else {

@@ -59,15 +59,13 @@ export function showSharedListApi( hash, onSuccessGetList) {
   })
   }
 
-
   export function checkIfSavedApi(user, hash, setSavedList) {
-    console.log("check if saved")
     return  fetch(`/api/users/${user.id}/shared_lists/${hash}`)
     .then(responce => {
         if (responce.ok) {
             responce.json()
                 .then(data => {
-                  setSavedList(true)
+                  setSavedList(data.saved)
                 })
         }
         else {

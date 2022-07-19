@@ -98,14 +98,16 @@ function List({ user }) {
                     >
                         Books you share
                     </Typography>
-                    <Typography align="center" color="text.secondary" paragraph sx={{ marginBottom: 4}}>
-                        There are {ln} books on your list. Please copy the link and send it to your friend to share these books.
-                        <Button
-                            onClick={() => {
-                                console.log("coppied", `http://localhost:4000/shared_list/${list.id}`)
-                                navigator.clipboard.writeText(`http://localhost:4000/shared_list/${list.id}`)}}>
-                            Copy share link
-                        </Button>
+                    <Typography align="center" color="text.secondary" paragraph sx={{ marginBottom: 4}}> {ln === 0 ? <div> Please add books to share them with your friends </div>
+                         : <div>
+                            There are {ln} books on your list. Please copy the link and send it to your friend to share these books.
+                            <Button
+                                onClick={() => {
+                                    console.log("coppied", `http://localhost:4000/shared_list/${list.id}`)
+                                    navigator.clipboard.writeText(`http://localhost:4000/shared_list/${list.id}`)}}>
+                                Copy share link
+                            </Button>
+                        </div>}
                     </Typography>
                     <Container maxWidth="sm">
                         {showForm

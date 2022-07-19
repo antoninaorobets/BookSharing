@@ -26,7 +26,6 @@ export default function SignUp({ loginUser }) {
     const [formData, setFormData] = useState(emptyForm)
     const navigate = useNavigate()
     const [errorMessage, setErrorMessage] = useState('')
-    console.log(formData)
     const handleChange = (e) => {
         setFormData({
             ...formData,

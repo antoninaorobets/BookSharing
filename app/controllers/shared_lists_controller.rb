@@ -12,7 +12,11 @@ class SharedListsController < ApplicationController
     def show
          user = User.find(params[:user_id])
          shared_lists = user.shared_lists.find_by( list_id:  params[:id] )
-        render json: {ok: "ok"}, status: :ok
+         if shared_lists 
+            render json: {saved: true}, status: :ok
+         else
+            render json: {saved: false}, status: :ok
+         end
     end
 
     def create
