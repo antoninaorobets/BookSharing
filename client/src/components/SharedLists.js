@@ -1,6 +1,7 @@
 import { Grid, Tab, Tabs, Box, Button, Typography } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import Book from './Book'
+import BookToRequest from './BookToRequest'
 import Container from '@mui/material/Container';
 import BookForm from './BookForm'
 import BooksControls from './BooksControls'
@@ -31,6 +32,9 @@ function SharedLists({ user }) {
         setSelectedList(newValue);
         console.log(newValue)
     };
+    const handleRequest = ()=> {
+        console.log("requested")
+    }
 
     let tabs
     let booksList
@@ -49,10 +53,11 @@ function SharedLists({ user }) {
         }
             booksList = allbooks.map(book => 
                 <Grid item xs={12} sm={6} md={4} >
-                    <Book 
+                    < BookToRequest
                         key={book.id} 
                         book={book} 
-                        // handleDelete={handleDelete} 
+                        owner = "Polly"
+                        handleRequest={handleRequest} 
                         // handleEdit={handleEditButton}
                         />
                 </Grid>)

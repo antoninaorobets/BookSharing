@@ -2,9 +2,11 @@ class UsersController < ApplicationController
     rescue_from ActiveRecord::RecordNotFound, with: :render_record_not_found
     def create
         user = User.create(user_login_params)
+        puts user
         if user.valid?
             session[:user_id] = user.id
-            user.Lists.create(name: "primary")
+            list = user.lists.create(name: "primary")
+            puts list
             render json: user, status: :created
         else 
             render json: {errors: user.errors.full_messages}, status: :unprocessable_entity

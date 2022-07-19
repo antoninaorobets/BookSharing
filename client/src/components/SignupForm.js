@@ -18,15 +18,15 @@ import validator from 'validator'
 
 export default function SignUp({ loginUser }) {
     const emptyForm = {
-        name: '',
-        email: '',
-        password: '',
+        "name": '',
+        "email": '',
+        "password": '',
         "password_confirmation": ''
     }
     const [formData, setFormData] = useState(emptyForm)
     const navigate = useNavigate()
     const [errorMessage, setErrorMessage] = useState('')
-
+    console.log(formData)
     const handleChange = (e) => {
         setFormData({
             ...formData,
@@ -79,13 +79,13 @@ export default function SignUp({ loginUser }) {
                     <Grid container spacing={2}>
                         <Grid item xs={12} >
                             <TextField
-                                autoComplete="given-name"
-                                name="name"
+                                autoFocus
                                 required
                                 fullWidth
                                 id="name"
                                 label="Name"
-                                autoFocus
+                                name="name"
+                                autoComplete="given-name"
                                 onChange={handleChange}
                             />
                         </Grid>

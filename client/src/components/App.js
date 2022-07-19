@@ -44,14 +44,12 @@ function App() {
       <ThemeProvider theme={theme}>
         <AppTopBar user={user} onLogout={logoutUser} />
         <Routes>
-          <Route path="/" element={user
-            ? <List user={user} />
-            : <Placeholder />
-          } />
+          <Route path="/" element={user  ? <List user={user} />  : <Placeholder />} />
           <Route path="/login" element={<Login loginUser={loginUser} />} />
           <Route path="/signup" element={<SignUp loginUser={loginUser} />} />
           <Route path="/shared_list/:hash" element={<SharedHashList user={user} />} />
-          <Route path="/shared/" element={<SharedLists user={user} />} />
+          <Route path="/shared/" element={user ? <SharedLists user={user}/> : <Placeholder /> } />
+        {/* <Route path="/shared/" element={user  ? <Requests user={user}/> : <Placeholder /> } />  */}
         </Routes>
         <FooterBar />
       </ThemeProvider>

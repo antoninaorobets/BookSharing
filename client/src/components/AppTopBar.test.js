@@ -35,8 +35,8 @@ test('renders logout button', () => {
   expect(element).toBeInTheDocument();
 });
 
-beforeAll(() => {
-})
+// beforeAll(() => {
+// })
 
 afterAll(() => {
   jest.restoreAllMocks();
