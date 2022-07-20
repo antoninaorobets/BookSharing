@@ -1,7 +1,7 @@
 import React from 'react'
 import { AppBar, Toolbar, Typography, Button } from '@mui/material'
-import { NavLink, Link } from 'react-router-dom'
-import InsertEmoticonOutlinedIcon from '@mui/icons-material/InsertEmoticonOutlined';
+import { NavLink } from 'react-router-dom'
+import { logoutApi } from '../api/userApi';
 
 
 function AppTopBar({ user, setUser }) {
@@ -16,21 +16,6 @@ function AppTopBar({ user, setUser }) {
     margin: "1em",
   })
 
-  const handleLogout = (e) => {
-    fetch('/api/logout',{
-      method: "DELETE",
-      header: {"Content-Type": "application/json"},
-      body: JSON.stringify({user_id: user.id})
-    }).then(responce => {
-      if (responce.ok){
-        responce.json().then(data => console.log("logged out", data))
-        setUser()
-      }
-      else {
-        responce.json().then(error => console.error(error))
-      }
-    })
-  }
   return (
     <AppBar
       position="static"
@@ -77,7 +62,12 @@ function AppTopBar({ user, setUser }) {
             >
               You logged in as {user.name}
             </NavLink>
-            <Button variant="outlined" onClick={handleLogout} sx={{ my: 1, mx: 1.5 }}> Logout </Button>
+            <Button   
+              variant="outlined" 
+              sx={{ my: 1, mx: 1.5 }} 
+              onClick={(e) => logoutApi(user, setUser)} > 
+              Logout 
+            </Button>
           </nav>
           : <NavLink to="/login" style={{ textDecoration: 'none' }}>
               <Button variant="outlined" sx={{ my: 1, mx: 1.5 }}>

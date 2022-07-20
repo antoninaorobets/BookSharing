@@ -42,3 +42,19 @@ export function getUserApi(setUser){
         }
       })
 }
+
+export function logoutApi(user, setUser) {
+    return fetch('/api/logout',{
+        method: "DELETE",
+        header: {"Content-Type": "application/json"},
+        body: JSON.stringify({user_id: user.id})
+      }).then(responce => {
+        if (responce.ok){
+          responce.json().then(data =>  setUser())
+         
+        }
+        else {
+          responce.json().then(error => console.error(error))
+        }
+      })
+}
