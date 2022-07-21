@@ -1,10 +1,12 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import { AppBar, Toolbar, Typography, Button } from '@mui/material'
 import { NavLink } from 'react-router-dom'
 import { logoutApi } from '../api/userApi';
+import {UserContext} from '../context/user' 
 
 
-function AppTopBar({ user, setUser }) {
+function AppTopBar() {
+  const { user, setUser } = useContext(UserContext)
 
   const linkStyle = ({ isActive }) => ({
     color: isActive ?'#827397' : "#5F5B5B",

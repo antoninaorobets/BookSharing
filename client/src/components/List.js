@@ -1,14 +1,16 @@
 import { Grid, Box, Button, Typography } from '@mui/material'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import Book from './Book'
 import Container from '@mui/material/Container';
 import BookForm from './BookForm'
 import BooksControls from './BooksControls'
 import {deleteBookApi} from '../api/bookApi'
 import {getMyListApi} from '../api/listApi'
+import {UserContext} from '../context/user'
 
-function List({ user }) {
+function List() {
     console.log("rerender component")
+    const {user} = useContext(UserContext)
     const [list, setList] = useState([])
     const [isLoading, setLoading] = useState(true);
     const [showForm, setShowForm] = useState(false)

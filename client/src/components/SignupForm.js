@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useNavigate, Link } from 'react-router-dom'
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -15,9 +15,10 @@ import MenuBookTwoToneIcon from '@mui/icons-material/MenuBookTwoTone';
 import { deepOrange, indigo } from '@mui/material/colors';
 import validator from 'validator'
 import { signUpApi } from '../api/userApi';
+import {UserContext} from '../context/user' 
 
-
-export default function SignUp({ loginUser }) {
+export default function SignUp() {
+    const {setUser} = useContext(UserContext) 
     const emptyForm = {
         "name": '',
         "email": '',
@@ -35,7 +36,7 @@ export default function SignUp({ loginUser }) {
     }
     const onSuccessSignUp = (user) => {
         setFormData(emptyForm)
-        loginUser(user)
+        setUser(user)
         navigate('/')
     }
     const onFailedSignUp = (error) => {

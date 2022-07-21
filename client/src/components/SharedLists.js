@@ -1,5 +1,5 @@
 import { Grid, Tab, Tabs, Box, Button, Typography } from '@mui/material'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import Book from './Book'
 import BookToRequest from './BookToRequest'
 import Container from '@mui/material/Container';
@@ -10,8 +10,10 @@ import { showSharedListApi, getAllSharedListsApi } from '../api/listApi'
 import PlaceholderIsLoading from './PlaceholderIsLoading'
 import { useParams } from 'react-router-dom';
 import ListTab from './ListsTab'
+import {UserContext} from '../context/user'
 
-function SharedLists({ user }) {
+function SharedLists() {
+    const {user} = useContext(UserContext)
     const [lists, setLists] = useState([])
     const [isLoading, setLoading] = useState(true);
     const [selectedList, setSelectedList] = useState('all');

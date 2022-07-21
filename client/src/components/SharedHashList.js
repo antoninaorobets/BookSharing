@@ -1,17 +1,20 @@
-import { Grid, Alert, Box, Button, Typography } from '@mui/material'
-import React, { useEffect, useState } from 'react'
+import {Grid, Alert, Box, Button, Typography} from '@mui/material'
+import React, {useEffect, useState, useContext} from 'react'
 import Book from './Book'
 import Container from '@mui/material/Container';
 import { showSharedListApi, checkIfSavedApi, createSharedListApi } from '../api/listApi'
 import PlaceholderIsLoading from './PlaceholderIsLoading'
-import { useParams } from 'react-router-dom';
+import {useParams}  from 'react-router-dom';
+import {UserContext} from '../context/user'
 
-function SharedHashList({ user }) {
+function SharedHashList() {
+    const {user} = useContext(UserContext)
     const [list, setList] = useState([])
     const [isLoading, setLoading] = useState(true);
     const [errorMessage, setErrorMessage] = useState(false)
     const [savedList, setSavedList] = useState(false)
     const { hash } = useParams()
+    
     useEffect(() => {
         showSharedListApi(hash, onSuccessGetList)
     }, [])

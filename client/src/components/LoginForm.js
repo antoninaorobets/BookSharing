@@ -1,11 +1,15 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 
 import { Container, Avatar, Button, Grid, Box, Alert, Typography, TextField, CssBaseline } from '@mui/material';
 import MenuBookTwoToneIcon from '@mui/icons-material/MenuBookTwoTone';
 import { useNavigate, Link } from 'react-router-dom';
 import { logInApi } from '../api/userApi';
+import {UserContext} from '../context/user' 
 
-function Login({ loginUser }) {
+
+function Login() {
+  const {setUser} = useContext(UserContext)
+
   const [formData, setFormData] = useState({
     email: '',
     password: ''
@@ -21,7 +25,7 @@ function Login({ loginUser }) {
   }
   const onSuccessLogIn = (user) =>{
     setFormData()
-    loginUser(user)
+    setUser(user)
     navigate('/')
   }
 
