@@ -21,22 +21,15 @@ class SharedListsController < ApplicationController
 
     def create
         user = User.find(params[:user_id])
-        new_list = user.shared_lists.create(list_id: params[:list_id])
-        if new_list 
-            render json: new_list, status: :created
-        else 
-            render json: {errors: new_list.errors.full_messages}, status: :unprocessable_entity
-        end
+        new_list = user.shared_lists.create!(list_id: params[:list_id])
+        render json: new_list, status: :created
+
     end
     
     def destroy
-        shared_list = Shared_list.find_by(id: params[:id])
-        if shared_list
-            shared_list.destroy
-            render json: {}  
-        else
-            render json: { error: "List not found" }, status: :not_found
-        end 
+        shared_list = Shared_list.find(params[:id])
+        shared_list.destroy
+        render json: {}  
     end
 
     private

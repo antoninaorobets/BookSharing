@@ -4,7 +4,7 @@ rescue_from ActiveRecord::RecordNotFound, with: :render_record_not_found
     def create
         user = User.find(params[:user_id])
         list = user.lists.first
-        book = list.books.create(book_params)
+        book = list.books.create!(book_params)
         if book 
             render json: book, status: :created
         else 
@@ -16,12 +16,8 @@ rescue_from ActiveRecord::RecordNotFound, with: :render_record_not_found
         user = User.find(params[:user_id])
         list = user.lists.first
         book = list.books.find_by(id: params[:id])
-        book.update(book_params)
-        if book 
-            render json: book, status: :ok
-        else 
-            render json: {errors: book.errors.full_messages}, status: :unprocessable_entity
-        end
+        book.update!(book_params)
+        render json: book, status: :ok
     end
 
     def destroy
@@ -29,9 +25,7 @@ rescue_from ActiveRecord::RecordNotFound, with: :render_record_not_found
         if book
             book.destroy
             render json: {}  
-        else
-            render json: { error: "Book not found" }, status: :not_found
-        end 
+        end
     end
     
     private
