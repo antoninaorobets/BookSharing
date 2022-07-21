@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_07_12_174948) do
+ActiveRecord::Schema[7.0].define(version: 2022_07_21_153746) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -33,6 +33,16 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_12_174948) do
     t.index ["user_id"], name: "index_lists_on_user_id"
   end
 
+  create_table "requests", force: :cascade do |t|
+    t.bigint "book_id", null: false
+    t.string "text"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "sender_id", null: false
+    t.integer "receiver_id", null: false
+    t.index ["book_id"], name: "index_requests_on_book_id"
+  end
+
   create_table "shared_lists", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "list_id", null: false
@@ -52,6 +62,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_12_174948) do
 
   add_foreign_key "books", "lists"
   add_foreign_key "lists", "users"
+  add_foreign_key "requests", "books"
+  add_foreign_key "requests", "users", column: "receiver_id"
+  add_foreign_key "requests", "users", column: "sender_id"
   add_foreign_key "shared_lists", "lists"
   add_foreign_key "shared_lists", "users"
 end
