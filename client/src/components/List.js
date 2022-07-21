@@ -9,7 +9,6 @@ import {getMyListApi} from '../api/listApi'
 import {UserContext} from '../context/user'
 
 function List() {
-    console.log("rerender component")
     const {user} = useContext(UserContext)
     const [list, setList] = useState([])
     const [isLoading, setLoading] = useState(true);
@@ -71,9 +70,8 @@ function List() {
     if (!isLoading) {
         ln = list.books.length
         booksList = list.books.map(book => 
-        <Grid item xs={12} sm={6} md={4} >
+        <Grid item xs={12} sm={6} md={4} key={book.id}  >
             <Book 
-                key={book.id} 
                 book={book} 
                 handleDelete={handleDelete} 
                 handleEdit={handleEditButton}
@@ -81,7 +79,7 @@ function List() {
         </Grid>)
     }
     return (
-        <div>
+        <Container>
             <Box
                 sx={{
                     bgcolor: 'background.paper',
@@ -100,17 +98,17 @@ function List() {
                     >
                         Books you share
                     </Typography>
-                    <Typography align="center" color="text.secondary" paragraph sx={{ marginBottom: 4}}> {ln === 0 ? <div> Please add books to share them with your friends </div>
-                         : <div>
-                            There are {ln} books on your list. Please copy the link and send it to your friend to share these books.
+                    {ln === 0 
+                        ? <Typography align="center" color="text.secondary" paragraph sx={{ marginBottom: 4}}> Please add books to share them with your friends </Typography>
+                        : <Typography align="center" color="text.secondary" paragraph sx={{ marginBottom: 4}}>There are {ln} books on your list. Please copy the link and send it to your friend to share these books.
                             <Button
                                 onClick={() => {
                                     console.log("coppied", `http://localhost:4000/shared_list/${list.id}`)
                                     navigator.clipboard.writeText(`http://localhost:4000/shared_list/${list.id}`)}}>
                                 Copy share link
                             </Button>
-                        </div>}
-                    </Typography>
+                        </Typography>
+                    }
                     <Container maxWidth="sm">
                         {showForm
                             ? <BookForm 
@@ -134,7 +132,7 @@ function List() {
                     {booksList}
                 </Grid>
             </Container>
-        </div>
+        </Container>
     )
 }
 

@@ -54,9 +54,8 @@ function SharedLists() {
             console.log(lists[selectedList])
         }
             booksList = allbooks.map(book => 
-                <Grid item xs={12} sm={6} md={4} >
+                <Grid item xs={12} sm={6} md={4} key={book.id}  >
                     < BookToRequest
-                        key={book.id} 
                         book={book} 
                         owner = "Polly"
                         handleRequest={handleRequest} 
