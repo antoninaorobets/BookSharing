@@ -24,6 +24,7 @@ function SharedLists() {
     }, [user])
 
     const onSuccessGetList = (data) => {
+        console.log(data)
         setLists(data)
         setLoading(false)
     }
@@ -35,15 +36,20 @@ function SharedLists() {
     let tabs
     let booksList
     let allbooks =[]
-
+    let showName = false
     if (!isLoading) {
         tabs = lists.map((list,index) => {
             const lable = list.list.user.name+ "'s list"
             return <Tab key={index} value={index} label={lable} />
         })
+        lists.forEach(list => {
+            list.books.forEach(book => book.owner = list.list.user)
+            })
         if (selectedList === "all") {
-            lists.forEach(list => allbooks = [].concat(allbooks, list.books))
+            showName = true
+            lists.forEach(list => {allbooks = [].concat(allbooks, list.books)})
         } else {
+            showName = false
             allbooks = lists[selectedList].books
         }
             booksList = allbooks.map(book => 
@@ -51,6 +57,8 @@ function SharedLists() {
                     < BookToRequest
                         book={book} 
                         user={user}
+                        owner={book.owner}
+                        showName={showName}
                         />
                 </Grid>)
         }

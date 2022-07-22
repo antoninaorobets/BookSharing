@@ -3,32 +3,41 @@ import {useState} from 'react'
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
+import Divider from '@mui/material/Divider';
+import CardHeader from '@mui/material/CardHeader';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Alert from '@mui/material/Alert'
 import {sendRequestApi} from '../api/requestApi'
 
 
-function BookToRequest({user, book}) {
+function BookToRequest({user, showName, book, owner}) {
   const [status, setStatus] = useState()
-  const requested = <Alert severity="success"> Request is sent</Alert>
+  let userName 
+
+  const requested = <Alert severity="success"> Request is sent to {owner.name}</Alert>
   const login_error = <Alert severity="error">Please Log in</Alert>
   const handleRequest = (book)=> {
     if (user) {
-        sendRequestApi(user, book, onSuccessRequest)
+        sendRequestApi(user, book, owner, onSuccessRequest)
     }
     else {
       setStatus(login_error)
     }
   }
+
   const onSuccessRequest = () =>{
     setStatus(requested)
   }
  
   return (
     <Card  sx={{ height: '100%', display: 'flex', flexDirection: 'column' }} style={{bgcolor: " #827397"}} >
-       <CardContent  sx={{ flexGrow: 1 }}>
-        <Typography gutterBottom variant="h6" color="#827397" component="div">
+      <CardContent  sx={{ flexGrow: 1 }}>
+      {showName ? <Typography  gutterBottom variant="h5" component="h5" color="#5F5B5B">{owner.name}'s book
+          <Divider/>
+      </Typography>
+        : null}
+       <Typography gutterBottom variant="h6" color="#827397" component="h1">
           {book.title}
         </Typography>
         <Typography gutterBottom variant="h7" color="#5F5B5B" component="div">
@@ -38,6 +47,7 @@ function BookToRequest({user, book}) {
           {book.description}
         </Typography>
       </CardContent>
+
       <CardActions>
         <Button size="small" style={{margin:"auto"}} onClick={()=>handleRequest(book)}>Request </Button>
       </CardActions> 

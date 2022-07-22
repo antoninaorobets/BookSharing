@@ -28,6 +28,7 @@ function SharedHashList() {
 
     const onSuccessGetList = (data) => {
         setList(data)
+        console.log(data)
         setLoading(false)
     }
     const onSuccessCreate = (data) => {
@@ -47,14 +48,17 @@ function SharedHashList() {
     let booksList
     let ln
     let name
+    const  showName = false
     if (!isLoading) {
         name = list.user.name
         ln = list.books.length
         booksList = list.books.map(book =>
             <Grid item xs={12} sm={6} md={4}  key={book.id} >
                 <BookToRequest
-                    book={book}
-                    user={user}
+                    book = {book}
+                    user = {user}
+                    owner = {list.user}
+                    showName = {showName}
                 />
             </Grid>)
     }

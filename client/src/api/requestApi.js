@@ -15,9 +15,10 @@ export function getRequestsApi(user, onSuccessGetRequests) {
   })
 }
 
-export function sendRequestApi(user, book, onSuccessRequest) {
+export function sendRequestApi(user, book, owner, onSuccessRequest) {
     const request_param = {
         "sender_id": user.id,
+        "receiver_id": owner.id,
         "book_id": book.id
     }
     return fetch(`/api/users/${user.id}/requests/`, {
