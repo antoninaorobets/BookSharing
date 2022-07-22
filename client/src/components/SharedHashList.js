@@ -1,11 +1,12 @@
 import {Grid, Alert, Box, Button, Typography} from '@mui/material'
 import React, {useEffect, useState, useContext} from 'react'
-import Book from './Book'
+import BookToRequest from './BookToRequest'
 import Container from '@mui/material/Container';
 import { showSharedListApi, checkIfSavedApi, createSharedListApi } from '../api/listApi'
 import PlaceholderIsLoading from './PlaceholderIsLoading'
 import {useParams}  from 'react-router-dom';
 import {UserContext} from '../context/user'
+
 
 function SharedHashList() {
     const {user} = useContext(UserContext)
@@ -14,6 +15,7 @@ function SharedHashList() {
     const [errorMessage, setErrorMessage] = useState(false)
     const [savedList, setSavedList] = useState(false)
     const { hash } = useParams()
+    const login_error = <Alert severity="error">Please Log in</Alert>
     
     useEffect(() => {
         showSharedListApi(hash, onSuccessGetList)
@@ -31,13 +33,14 @@ function SharedHashList() {
     const onSuccessCreate = (data) => {
         setSavedList(true)
     }
+    
 
     const onSave = () => {
         if (user && !savedList) {
             createSharedListApi(user, list, setSavedList)
         }
         else {
-            setErrorMessage(<Alert severity="error">Please Log in</Alert>)
+            setErrorMessage(login_error)
         }
     }
 
@@ -48,12 +51,10 @@ function SharedHashList() {
         name = list.user.name
         ln = list.books.length
         booksList = list.books.map(book =>
-            <Grid item xs={12} sm={6} md={4} >
-                <Book
-                    key={book.id}
+            <Grid item xs={12} sm={6} md={4}  key={book.id} >
+                <BookToRequest
                     book={book}
-                // handleDelete={handleDelete} 
-                // handleEdit={handleEditButton}
+                    user={user}
                 />
             </Grid>)
     }

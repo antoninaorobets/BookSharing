@@ -20,28 +20,22 @@ function SharedLists() {
 
     useEffect(() => {
         if (!user) return
-        console.log("user", user)
         getAllSharedListsApi(user, onSuccessGetList)
     }, [user])
 
     const onSuccessGetList = (data) => {
         setLists(data)
         setLoading(false)
-        console.log(data)
     }
 
     const handleTabChange = (event, newValue) => {
         setSelectedList(newValue);
-        console.log(newValue)
     };
-    const handleRequest = ()=> {
-        console.log("requested")
-    }
 
     let tabs
     let booksList
     let allbooks =[]
-    let ln = "3"
+
     if (!isLoading) {
         tabs = lists.map((list,index) => {
             const lable = list.list.user.name+ "'s list"
@@ -51,15 +45,12 @@ function SharedLists() {
             lists.forEach(list => allbooks = [].concat(allbooks, list.books))
         } else {
             allbooks = lists[selectedList].books
-            console.log(lists[selectedList])
         }
             booksList = allbooks.map(book => 
                 <Grid item xs={12} sm={6} md={4} key={book.id}  >
                     < BookToRequest
                         book={book} 
-                        owner = "Polly"
-                        handleRequest={handleRequest} 
-                        // handleEdit={handleEditButton}
+                        user={user}
                         />
                 </Grid>)
         }

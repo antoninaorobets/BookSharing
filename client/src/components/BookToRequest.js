@@ -1,25 +1,32 @@
 import * as React from 'react';
+import {useState} from 'react'
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
- 
+import Alert from '@mui/material/Alert'
+import {sendRequestApi} from '../api/requestApi'
 
-function Book({book, owner, handleRequest}) {
+
+function BookToRequest({user, book}) {
+  const [status, setStatus] = useState()
+  const requested = <Alert severity="success"> Request is sent</Alert>
+  const login_error = <Alert severity="error">Please Log in</Alert>
+  const handleRequest = (book)=> {
+    if (user) {
+        sendRequestApi(user, book, onSuccessRequest)
+    }
+    else {
+      setStatus(login_error)
+    }
+  }
+  const onSuccessRequest = () =>{
+    setStatus(requested)
+  }
  
   return (
     <Card  sx={{ height: '100%', display: 'flex', flexDirection: 'column' }} style={{bgcolor: " #827397"}} >
-       {/* <CardMedia
-        component="img"
-        height="140"
-        mage="https://source.unsplash.com/random"
-        // image="../pi78gKzxT"
-        alt="book-cover"
-      /> */}
-       {/* <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-          This is {owner}'s book
-        </Typography> */}
        <CardContent  sx={{ flexGrow: 1 }}>
         <Typography gutterBottom variant="h6" color="#827397" component="div">
           {book.title}
@@ -32,12 +39,13 @@ function Book({book, owner, handleRequest}) {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small" onClick={()=>handleRequest(book.id)}>Request </Button>
+        <Button size="small" style={{margin:"auto"}} onClick={()=>handleRequest(book)}>Request </Button>
       </CardActions> 
+      {status}
     </Card>
 
   );
 }
 
 
-export default Book
+export default BookToRequest

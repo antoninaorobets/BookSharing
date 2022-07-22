@@ -9,9 +9,9 @@ Rails.application.routes.draw do
       resources :lists, only: [:index]
       resources :books, only: [:create,:destroy, :update]
       resources :shared_lists, only: [:index, :show, :create, :destroy]
-      resources :requests, only: [:index, :create]
+      resources :requests, only: [:index, :show, :create]
+  
     end
-
   end
 
   get '/api/lists/:hash', to: 'lists#show'
