@@ -109,21 +109,3 @@ test('calls fetch prop when Request clicked', () => {
 })
 
 
-// test('display success alsert when Request clicked', () => {
- //   const handleRequest = jest.mock
-//     render(
-//         <UserProvider>
-//             <Router>
-//                 < BookToRequest
-//                     book={book}
-//                     user={user}
-//                     owner={owner}
-//                     showName={true}
-//                 />  </Router >
-//         </UserProvider>)
-//     fireEvent.click(screen.getByText(/request/i))
-//     const alert = screen.findByText('Request is sent')
-//     expect(alert).toBeInTheDocument()
-//})
-// test form is rendered
-

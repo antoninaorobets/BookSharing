@@ -9,6 +9,7 @@ import FooterBar from './FooterBar'
 import List from "./List";
 import SharedLists from './SharedLists'
 import SharedHashList from './SharedHashList'
+import Requests from './Requests'
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { getUserApi } from "../api/userApi";
 import { UserContext } from "../context/user"
@@ -38,7 +39,7 @@ function App() {
           <Route path="/signup" element={<SignUp />} />
           <Route path="/shared_list/:hash" element={<SharedHashList />} />
           <Route path="/shared/" element={user ? <SharedLists /> : <Placeholder />} />
-          {/* <Route path="/shared/" element={user  ? <Requests user={user}/> : <Placeholder /> } />  */}
+          <Route path="/requests/" element={user  ? <Requests /> : <Placeholder /> } /> 
         </Routes>
         <FooterBar />
       </ThemeProvider>
