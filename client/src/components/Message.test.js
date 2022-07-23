@@ -1,5 +1,5 @@
 import { render, screen, fireEvent } from '@testing-library/react';
-import Requests from './Requests'
+import Message from './Message'
 import { UserProvider } from '../context/user'
 import { BrowserRouter as Router } from 'react-router-dom';
 import { Experimental_CssVarsProvider } from '@mui/material';
@@ -16,98 +16,109 @@ const request = {
         "status": null
     },
     "sender": {
-        "id": 5,
-        "name": "Dan"
-    },
-    "receiver": {
         "id": 3,
         "name": "Polly"
+    },
+    "receiver": {
+        "id": 5,
+        "name": "Dan"
     }
+}
+const me = {
+    "id": 3,
+    "name": "Polly"
+}
+const me2 = {
+    "id": 5,
+    "name": "Dan"
 }
 
 test('Message component is rendered', () => {
     render(
         <UserProvider>
             <Router>
-                <Message data={request} My_request={true}/>
+                <Message data={request} user={me}/>
             </Router>
         </UserProvider>
     )
-    const card = screen.getByRole('card')
-    expect(card).toBeInTheDocument()
+    expect(screen.getByRole('card')).toBeInTheDocument()
 })
 
-
-test('Book displayed in the Message component', () => {
+test('Book title displayed in the Message component', () => {
     render(
         <UserProvider>
             <Router>
-                <Message data={request} My_request={true}/>
+                <Message data={request} user={me}/>
             </Router>
         </UserProvider>
     )
-    const book_title = screen.getByRole('title')
-    const book_author = screen.getByRole('author')
+    expect(screen.getByText(/Pat the Bunny/)).toBeInTheDocument()
+})
+
+test('Book author displayed in the Message component', () => {
+    render(
+        <UserProvider>
+            <Router>
+                <Message data={request} user={me}/>
+            </Router>
+        </UserProvider>
+    )
+    expect(screen.getByText(/Dorothy Kunhardt/)).toBeInTheDocument()
 })
 
 test('Data displayed in the Message component', () => {
     render(
         <UserProvider>
             <Router>
-                <Message data={request} My_request={true}/>
+                <Message data={request} user={me}/>
             </Router>
         </UserProvider>
     )
-    const date = screen.getByRole('date')
-    expect(date).toBe("7/21/2022")
+    expect(screen.getByText(/Jul 21,2022/)).toBeInTheDocument()
 })
 
 test('Receiver Name is displayed in the Message component', () => {
     render(
         <UserProvider>
             <Router>
-                <Message data={request} My_request={true}/>
+                <Message data={request} user={me}/>
             </Router>
         </UserProvider>
     )
     // const receiver = screen.getByRole('receiver')
-    const receiver = screen.getByText('To: Polly')
+    const receiver = screen.getByText(/To: Dan/)
 })
-
 
 test('Sender Name is displayed in the Message component', () => {
     render(
         <UserProvider>
             <Router>
-                <Message data={request} My_request={false}/>
+                <Message data={request} user={me2}/>
             </Router>
         </UserProvider>
     )
-    const receiver = screen.getByText('From: Dan')
+    const receiver = screen.getByText('From: Polly')
 })
 
-test('Primary Color of my requests books', () => {
+test('Sent request differ from received request', () => {
     render(
         <UserProvider>
             <Router>
-                <Message data={request} My_request={true}/>
+                <Message data={request} user={me}/>
             </Router>
         </UserProvider>
     )
 
-    expect(getByRole("Card")).toHaveAttribute("color").toMatch(/#827397/)
-    // or primary
+    expect(screen.getByText(/You sent request/)).not.toContain(/has requested/)
 })
 
-test('white Color of my requests books', () => {
+test('Sent request differ from received request', () => {
     render(
         <UserProvider>
             <Router>
-                <Message data={request} My_request={false}/>
+                <Message data={request} user={me2}/>
             </Router>
         </UserProvider>
     )
-
-    expect(getByRole("Card")).not.toHaveAttribute("color").toMatch(/white/)
-    // or primary
+    expect(screen.getByText(/has requested/)).not.toContain(/You sent request/)
 })

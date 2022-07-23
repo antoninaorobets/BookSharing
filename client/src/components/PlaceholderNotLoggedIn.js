@@ -2,7 +2,6 @@ import React from 'react'
 import { Box, Typography } from '@mui/material'
 
 function Placeholder() {
-  console.log("placeholpder")
   return (
     <Box
       sx={{

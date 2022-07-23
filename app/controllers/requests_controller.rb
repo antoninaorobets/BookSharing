@@ -3,10 +3,12 @@ class RequestsController < ApplicationController
 
     def index
         user =  User.find(params[:user_id])
-        received_requests = user.received_requests
-        sent_requests = user.sent_requests
-        #render json: {sent: sent_requests,received: received_requests }, include: ["sender", "receiver", "book"], status: :ok
-        render json: sent_requests + received_requests , status: :ok
+         received_requests = user.received_requests
+         sent_requests = user.sent_requests
+        # #render json: {sent: sent_requests,received: received_requests }, include: ["sender", "receiver", "book"], status: :ok
+         render json: sent_requests + received_requests , status: :ok
+ 
+ 
     end
     def show
         user =  User.find(params[:user_id])

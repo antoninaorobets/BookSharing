@@ -9,7 +9,7 @@ function PlaceholderIsLoading() {
         pb: 6,
     }}
 >
-    <Typography component="h1"  variant="h4" align="center" color="text.secondary" paragraph sx={{ marginBottom: 4}}>
+    <Typography component="h1"  variant="h6" align="center" color="text.secondary" paragraph sx={{ marginBottom: 4}}>
       List is loading ...
     </Typography>
     </Box>

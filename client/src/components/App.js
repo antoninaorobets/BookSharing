@@ -39,7 +39,7 @@ function App() {
           <Route path="/signup" element={<SignUp />} />
           <Route path="/shared_list/:hash" element={<SharedHashList />} />
           <Route path="/shared/" element={user ? <SharedLists /> : <Placeholder />} />
-          <Route path="/requests/" element={user  ? <Requests /> : <Placeholder /> } /> 
+          <Route path="/requests" element={user ? <Requests /> : <Placeholder /> } /> 
         </Routes>
         <FooterBar />
       </ThemeProvider>
