@@ -24,7 +24,7 @@ function BooksControls({ setShowForm }) {
                 Add Book
             </Button>
             
-            <TextField
+            {/* <TextField
                 size="small"
                 fullWidth
                 id="search"
@@ -33,7 +33,7 @@ function BooksControls({ setShowForm }) {
                 InputProps={{
                     endAdornment: <InputAdornment position="end"><SearchIcon/></InputAdornment>,
                   }}
-            / > 
+            / >  */}
         </Stack>
     )
 }

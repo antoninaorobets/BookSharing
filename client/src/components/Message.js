@@ -10,7 +10,6 @@ import { format } from 'fecha';
 function Message({ user, data }) {
     const messageDate = format(new Date(data.created_at), 'MMM DD,YYYY')
  
-
     let i_sent_request = false
     let header = `From: ${data.sender.name}`
     let style_My_message = { width: "70%" }

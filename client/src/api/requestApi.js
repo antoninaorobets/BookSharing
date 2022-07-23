@@ -1,7 +1,7 @@
 import React from 'react'
 
-export function getRequestsApi(user, onSuccessGetRequests) {
-  return  fetch(`/api/users/${user.id}/requests`)
+export function getRequestedApi(user, onSuccessGetRequests, type = "sent") {
+  return  fetch(`/api/users/${user.id}/requests/?type=${type}`)
   .then(responce => {
       if (responce.ok) {
           responce.json()

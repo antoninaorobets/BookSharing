@@ -9,13 +9,16 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Alert from '@mui/material/Alert'
 import {sendRequestApi} from '../api/requestApi'
+import { NavLink } from 'react-router-dom'
 
 
 function BookToRequest({user, showName, book, owner}) {
   const [status, setStatus] = useState()
   let userName 
 
-  const requested = <Alert severity="success"> Request is sent to {owner.name}</Alert>
+  const requested = <Alert severity="success"> Request is sent to {owner.name}. <br />
+    <NavLink to='/requests'>View Request</NavLink>
+    </Alert>
   const login_error = <Alert severity="error">Please Log in</Alert>
 
   const handleRequest = ()=> {

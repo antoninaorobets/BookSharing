@@ -3,34 +3,67 @@ import Typography from '@mui/material/Typography'
 import Container from '@mui/material/Container'
 import Grid from '@mui/material/Grid'
 import Box from '@mui/material/Box'
+import Tabs from '@mui/material/Tabs'
+import Tab from '@mui/material/Tab'
 import {UserContext} from '../context/user'
-import {getRequestsApi} from '../api/requestApi'
+import {getRequestedApi} from '../api/requestApi'
 import Message from './Message'
 import PlaceholderIsLoading from './PlaceholderIsLoading'
 
 function Requests() {
     const {user} = useContext(UserContext)
-    const [requests,setRequests] = useState([])
-    const [isLoading, setIsLoading] = useState(true)
-
+    const [received,setReceived] = useState([])
+    const [sent,setSent] = useState([])
+    const [sentIsLoading, setSentIsLoading] = useState(true)
+    const [receivedIsLoading, setReceivedIsLoading] = useState(true)
+    const [selectedTab, setSelectedTab] = useState('sent');
+   
+    const handleTabChange = (event, newValue) => {
+        setSelectedTab(newValue);
+        console.log(newValue)
+    };
     useEffect(() => {
         if (!user) return
-        getRequestsApi(user, onSuccessGetRequests)
+        getRequestedApi(user, onGetRequested,"requested")
+        getRequestedApi(user, onGetSent, "sent")
     }, [user])
 
-    const onSuccessGetRequests = (data) =>{
-        setRequests(data)
-        setIsLoading(false)
+    const onGetRequested = (data) =>{
+        setReceived(data)
+        setReceivedIsLoading(false)
     }
+    const onGetSent = (data) =>{
+        setSent(data)
+        setSentIsLoading(false)
+    }
+    console.log("requested",received)
+    console.log("sent",sent)
 
-    let messages
-    if (!isLoading) {
-        messages = requests.map((request,index) =>
+    let requestedMessages
+    if (!receivedIsLoading) {
+        requestedMessages = received.map((request,index) =>
             <Grid item xs={1} sm={12} md={12}  key={index}  >
                 <Message 
                 data={request} 
                 user={user}/>
             </Grid> )  
+    }
+
+    let sentMessages
+    if (!sentIsLoading) {
+        sentMessages = sent.map((request,index) =>
+            <Grid item xs={1} sm={12} md={12}  key={index}  >
+                <Message 
+                data={request} 
+                user={user}/>
+            </Grid> )
+    }
+    let display
+
+    if (selectedTab === "received") {
+        display = requestedMessages
+    } else {
+        display = sentMessages
     }
       
     return ( <div>
@@ -54,13 +87,24 @@ function Requests() {
                 </Container>
             </Box>
 
-            {isLoading ? <PlaceholderIsLoading /> : null}
-
-            <Container sx={{ py: 4 }}   style={{backgroundColor: "rgb(130, 115, 151, 0.1)", width: "70%"}} >
+          
+            <Container   style={{backgroundColor: "rgb(130, 115, 151, 0.1)", width: "70%", borderRadius: "10px"}} >
+                <Tabs
+                    sx={{ pb: 4 }} 
+                    value={selectedTab}
+                    onChange={handleTabChange}
+                    textColor="primary"
+                    indicatorColor="primary"
+                    aria-label="secondary tabs example"
+                >
+                    <Tab value="sent" label="Sent requests" />
+                    <Tab value="received" label="Received requests" />
+                </Tabs>
                 <Grid container spacing={4}> 
-                    {messages}
+                    {display}
                 </Grid> 
             </Container>     
+              {sentIsLoading && receivedIsLoading ? <PlaceholderIsLoading /> : null}
        </div>
     )
 }
