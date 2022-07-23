@@ -1,6 +1,6 @@
 import { Grid, Tab, Tabs, Box, Button, Typography } from '@mui/material'
 import React, { useEffect, useState, useContext } from 'react'
-import Book from './Book'
+import BookToShare from './BookToShare'
 import BookToRequest from './BookToRequest'
 import Container from '@mui/material/Container';
 import BookForm from './BookForm'

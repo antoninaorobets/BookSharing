@@ -1,6 +1,6 @@
 import { Grid, Box, Button, Typography } from '@mui/material'
 import React, { useEffect, useState, useContext } from 'react'
-import Book from './Book'
+import BookToShare from './BookToShare'
 import Container from '@mui/material/Container';
 import BookForm from './BookForm'
 import BooksControls from './BooksControls'
@@ -71,7 +71,7 @@ function List() {
         ln = list.books.length
         booksList = list.books.map(book => 
         <Grid item xs={12} sm={6} md={4} key={book.id}  >
-            <Book 
+            <BookToShare 
                 book={book} 
                 handleDelete={handleDelete} 
                 handleEdit={handleEditButton}

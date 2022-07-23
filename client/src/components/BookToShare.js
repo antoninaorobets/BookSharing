@@ -9,7 +9,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 
 
-function Book({book, handleDelete, handleEdit}) {
+function BookToShare({book, handleDelete, handleEdit}) {
 
   
  
@@ -23,13 +23,13 @@ function Book({book, handleDelete, handleEdit}) {
         alt="book-cover"
       /> */}
        <CardContent  sx={{ flexGrow: 1 }}>
-        <Typography gutterBottom variant="h6" color="#827397" component="div">
+        <Typography gutterBottom variant="h6" color="#827397" role="title" component="div">
           {book.title}
         </Typography>
-        <Typography gutterBottom variant="h7" color="#5F5B5B" component="div">
+        <Typography gutterBottom variant="h7" color="#5F5B5B" role="author" component="div">
           {book.author}
         </Typography>
-        <Typography variant="body2" color="text.secondary">
+        <Typography variant="body2"  role="description" color="text.secondary">
           {book.description}
         </Typography>
       </CardContent>
@@ -43,4 +43,4 @@ function Book({book, handleDelete, handleEdit}) {
 }
 
 
-export default Book
+export default BookToShare

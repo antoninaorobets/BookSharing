@@ -33,5 +33,9 @@ login
 
 TO DOs
 - manage errors
+- If you have only one shared list no need to keep two tabs
+- if tou don't have any list => placeholder
 - return user on shared list after login if they go to login page from Save List, 
+- do not request your owen books
+- search books on client
 - do not show login page when log in

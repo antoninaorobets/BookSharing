@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext} from "react";
+import { useState, useEffect, useContext } from "react";
 import { Routes, Route } from "react-router-dom";
 import '@fontsource/roboto/300.css';
 import Login from "./LoginForm";
@@ -11,10 +11,10 @@ import SharedLists from './SharedLists'
 import SharedHashList from './SharedHashList'
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { getUserApi } from "../api/userApi";
-import {UserContext } from "../context/user"
+import { UserContext } from "../context/user"
 
 function App() {
-  const {user, setUser} = useContext(UserContext)
+  const { user, setUser } = useContext(UserContext)
 
   const theme = createTheme({
     palette: {
@@ -29,19 +29,19 @@ function App() {
   }, [])
 
   return (
-    <div className="App">     
-        <ThemeProvider theme={theme}>
-          <AppTopBar />
-          <Routes>
-            <Route path="/" element={user ? <List /> : <Placeholder />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<SignUp />} />
-            <Route path="/shared_list/:hash" element={<SharedHashList />} />
-            <Route path="/shared/" element={user ? <SharedLists /> : <Placeholder />} />
-            {/* <Route path="/shared/" element={user  ? <Requests user={user}/> : <Placeholder /> } />  */}
-          </Routes>
-          <FooterBar />
-        </ThemeProvider>
+    <div className="App">
+      <ThemeProvider theme={theme}>
+        <AppTopBar />
+        <Routes>
+          <Route path="/" element={user ? <List /> : <Placeholder />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/shared_list/:hash" element={<SharedHashList />} />
+          <Route path="/shared/" element={user ? <SharedLists /> : <Placeholder />} />
+          {/* <Route path="/shared/" element={user  ? <Requests user={user}/> : <Placeholder /> } />  */}
+        </Routes>
+        <FooterBar />
+      </ThemeProvider>
     </div>
   );;
 }
