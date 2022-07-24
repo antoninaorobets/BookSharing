@@ -1,9 +1,10 @@
 class UsersController < ApplicationController
     rescue_from ActiveRecord::RecordNotFound, with: :render_record_not_found
+    wrap_parameters format: []
     def create
         user = User.create!(user_login_params)
         session[:user_id] = user.id
-        list = user.lists.create(name: "primary")
+        list = user.lists.create(name: "default")
         render json: user, status: :created
     end
 
@@ -14,7 +15,7 @@ class UsersController < ApplicationController
 
     private
     def user_login_params
-        params.permit(:name, :email, :password, :password_confirmation)
+        params.permit(:user, :name, :email, :password, :password_confirmation)
     end
     def render_record_not_found
         render json: {errors: "User not found"}, status: :not_found
