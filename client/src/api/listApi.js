@@ -15,7 +15,7 @@ export function getMyListApi( user, onSuccessGetList) {
   })
 }
 
-export function showSharedListApi( hash, onSuccessGetList) {
+export function showSharedListApi( hash, onSuccessGetList,onError) {
     return  fetch(`/api/lists/${hash}`)
     .then(responce => {
         if (responce.ok) {
@@ -25,7 +25,8 @@ export function showSharedListApi( hash, onSuccessGetList) {
                 })
         }
         else {
-            responce.json().then(error => console.error(error))
+            responce.json().then(error => {console.log(error)
+              onError(error)})
         }
     })
   }
