@@ -10,6 +10,8 @@ import {getRequestedApi} from '../api/requestApi'
 import Message from './Message'
 import PlaceholderIsLoading from './PlaceholderIsLoading'
 
+
+
 function Requests() {
     const {user} = useContext(UserContext)
     const [received,setReceived] = useState([])
@@ -87,7 +89,6 @@ function Requests() {
                 </Container>
             </Box>
 
-          
             <Container   style={{backgroundColor: "rgb(130, 115, 151, 0.1)", width: "70%", borderRadius: "10px"}} >
                 <Tabs
                     sx={{ pb: 4 }} 

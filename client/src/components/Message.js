@@ -19,7 +19,7 @@ function Message({ user, data }) {
     if (user.id === data.sender.id) {
         i_sent_request = true
         header = `To: ${data.receiver.name}`
-        style_My_message = { backgroundColor: "rgb(130, 115, 151, 0.5)", float: "right", width: "70%" }
+        style_My_message = { backgroundColor: "rgb(130, 115, 151, 1)", color: "#fff",  float: "right", width: "70%" }
         text = `You sent request for `
         textending = `to ${data.receiver.name}`
     }

@@ -104,8 +104,7 @@ test('calls fetch prop when Request clicked', () => {
         </UserProvider>)
     const button = screen.getByText(/Request/i)
     fireEvent.click(button)
-
-     expect(spy).toHaveBeenCalledTimes(1)
+    expect(spy).toHaveBeenCalledTimes(1)
 })
 
 

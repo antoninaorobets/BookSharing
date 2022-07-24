@@ -47,16 +47,6 @@ afterEach(() => {
     
 // })
 
-// test('Requests are fetched ',  () => {
-//     const spy =  jest.spyOn(global,'fetch')
-//     render(
-//     <UserProvider>
-//         <Router>
-//             <Requests />
-//         </Router>
-//     </UserProvider>)
-//     expect(spy).toHaveBeenCalledTimes(1)
-// })
 
 // need enxim to get access to method  test 
 //onSuccessGetRequests

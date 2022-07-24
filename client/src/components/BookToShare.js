@@ -7,6 +7,7 @@ import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
+import Divider from '@mui/material/Divider';
 
 
 function BookToShare({book, handleDelete, handleEdit}) {
@@ -26,10 +27,11 @@ function BookToShare({book, handleDelete, handleEdit}) {
         <Typography gutterBottom variant="h6" color="#827397" role="title" component="div">
           {book.title}
         </Typography>
-        <Typography gutterBottom variant="h7" color="#5F5B5B" role="author" component="div">
+        <Divider />
+        <Typography gutterBottom variant="h7" color="#5F5B5B" role="author" component="div"   sx={{pt: "8px"}}>
           {book.author}
         </Typography>
-        <Typography variant="body2"  role="description" color="text.secondary">
+        <Typography variant="body2"  role="description" color="text.secondary"  sx={{pt: "8px"}}>
           {book.description}
         </Typography>
       </CardContent>

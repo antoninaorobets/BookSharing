@@ -12,8 +12,10 @@ import {sendRequestApi} from '../api/requestApi'
 import { NavLink } from 'react-router-dom'
 
 
+
 function BookToRequest({user, showName, book, owner}) {
   const [status, setStatus] = useState()
+
   let userName 
 
   const requested = <Alert severity="success"> Request is sent to {owner.name}. <br />
@@ -44,16 +46,19 @@ function BookToRequest({user, showName, book, owner}) {
        <Typography gutterBottom variant="h6" color="#827397" role='title' component="h1">
           {book.title}
         </Typography>
-        <Typography gutterBottom variant="h7" color="#5F5B5B" role='author'  component="div">
+        <Divider />
+        <Typography gutterBottom variant="h7" color="#5F5B5B" role='author'  component="div" sx={{pt: "8px"}}>
           {book.author}
         </Typography>
-        <Typography variant="body2" color="text.secondary" role='description' >
+        <Typography variant="body2" color="text.secondary" role='description'  sx={{pt: "8px"}}>
           {book.description}
         </Typography>
       </CardContent>
 
       <CardActions>
-        <Button onClick={handleRequest} size="small" style={{margin:"auto"}} >Request </Button>
+        {user.id !== owner.id 
+        ? <Button onClick={handleRequest} size="small" style={{margin:"auto"}} >Request </Button>
+        :null }
       </CardActions> 
       {status}
     </Card>
