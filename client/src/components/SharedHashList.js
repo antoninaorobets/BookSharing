@@ -112,7 +112,7 @@ function SharedHashList() {
                                 justifyContent="center">
                                {text}
                             </Typography>
-                        {!savedList
+                        {!savedList &&  (user.id !== list.user.id)
                         ? <Box component="span" sx={{ width: "100%", display: "flex", justifyContent: "center" }}>
                                 <Button direction="row"
                                     variant="contained"
