@@ -78,6 +78,7 @@ function List() {
                 />
         </Grid>)
     }
+    const link = `${window.location.protocol}//${window.location.host}/shared_list/${list.id}`
     return (
         <Container>
             <Box
@@ -103,8 +104,8 @@ function List() {
                         : <Typography align="center" color="text.secondary" paragraph sx={{ marginBottom: 4}}>There are {ln} books on your list. Please copy the link and send it to your friend to share these books.
                             <Button
                                 onClick={() => {
-                                    console.log("coppied", `http://localhost:4000/shared_list/${list.id}`)
-                                    navigator.clipboard.writeText(`http://localhost:4000/shared_list/${list.id}`)}}>
+                                    console.log("coppied", link)
+                                    navigator.clipboard.writeText(link)}}>
                                 Copy share link
                             </Button>
                         </Typography>
