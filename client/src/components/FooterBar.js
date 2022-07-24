@@ -15,10 +15,7 @@ function FooterBar() {
     >
       The Book Sharing application, 2022
     </Typography>
-
   </Box>
-
-
   )
 }
 

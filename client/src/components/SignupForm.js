@@ -4,16 +4,12 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
 import Alert from '@mui/material/Alert';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import MenuBookTwoToneIcon from '@mui/icons-material/MenuBookTwoTone';
-import { deepOrange, indigo } from '@mui/material/colors';
-import validator from 'validator'
 import { signUpApi } from '../api/userApi';
 import {UserContext} from '../context/user' 
 

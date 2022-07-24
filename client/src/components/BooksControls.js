@@ -23,17 +23,7 @@ function BooksControls({ setShowForm }) {
                 onClick={() => { setShowForm(true) }} >
                 Add Book
             </Button>
-            
-            {/* <TextField
-                size="small"
-                fullWidth
-                id="search"
-                label="Search"
-                name="search"
-                InputProps={{
-                    endAdornment: <InputAdornment position="end"><SearchIcon/></InputAdornment>,
-                  }}
-            / >  */}
+
         </Stack>
     )
 }

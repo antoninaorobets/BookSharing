@@ -41,9 +41,9 @@ function Requests() {
     console.log("requested",received)
     console.log("sent",sent)
 
-    let requestedMessages
+    let receivedMessages
     if (!receivedIsLoading) {
-        requestedMessages = received.map((request,index) =>
+        receivedMessages = received.map((request,index) =>
             <Grid item xs={1} sm={12} md={12}  key={index}  >
                 <Message 
                 data={request} 
@@ -59,13 +59,16 @@ function Requests() {
                 data={request} 
                 user={user}/>
             </Grid> )
+        
     }
     let display
-
+    let noMessages = false
     if (selectedTab === "received") {
-        display = requestedMessages
+        display = receivedMessages
+        noMessages = received.length === 0
     } else {
         display = sentMessages
+        noMessages = sent.length === 0
     }
       
     return ( <div>
@@ -105,7 +108,16 @@ function Requests() {
                     {display}
                 </Grid> 
             </Container>     
-              {sentIsLoading && receivedIsLoading ? <PlaceholderIsLoading /> : null}
+            {sentIsLoading && receivedIsLoading 
+                ? <PlaceholderIsLoading /> 
+                : noMessages&& !sentIsLoading
+                    ?  <Typography
+                        sx={{ pt: 8,pb: 8 }}
+                        align="center"
+                        color="primary"
+                        > You don't have {selectedTab} messages yet.
+                        </Typography>
+                    : null}
        </div>
     )
 }

@@ -85,7 +85,6 @@ test('Receiver Name is displayed in the Message component', () => {
             </Router>
         </UserProvider>
     )
-    // const receiver = screen.getByRole('receiver')
     const receiver = screen.getByText(/To: Dan/)
 })
 

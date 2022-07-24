@@ -1,9 +1,7 @@
 import { render, screen, fireEvent } from '@testing-library/react';
-
 import BookToShare from './BookToShare';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { UserProvider } from "../context/user"
-
 
     const book = {
         author: "Dorothy Kunhardt",
@@ -13,8 +11,6 @@ import { UserProvider } from "../context/user"
     const handleDelete = jest.fn()
     const handleEditButton =  jest.fn()
     
-
-
     test('Book conponent has title ', () => {
         render(
             <UserProvider>
@@ -69,5 +65,4 @@ import { UserProvider } from "../context/user"
         expect(handleEditButton).toHaveBeenCalledTimes(1)
       })
 
-// test form is rendered
 

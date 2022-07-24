@@ -15,5 +15,4 @@ test('render app', () => {
   expect(linkElement).toBeInTheDocument();
 });
 
-//loginUser
-//logoutUser
+

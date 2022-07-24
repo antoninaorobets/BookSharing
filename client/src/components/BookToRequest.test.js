@@ -3,8 +3,6 @@ import React from 'react';
 import BookToRequest from './BookToRequest';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { UserProvider } from "../context/user"
-import {sendRequestApi} from '../api/requestApi'
-import { findRenderedDOMComponentWithTag } from 'react-dom/test-utils';
 
 
 const book = {

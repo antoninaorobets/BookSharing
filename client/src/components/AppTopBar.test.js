@@ -35,9 +35,6 @@ test('renders logout button', () => {
   expect(element).toBeInTheDocument();
 });
 
-// beforeAll(() => {
-// })
-
 afterAll(() => {
   jest.restoreAllMocks();
 })
@@ -123,5 +120,3 @@ test('renders Requests button when logged in', () => {
   expect(element).toBeInTheDocument();
 });
 
-
- // test logout changes to login
