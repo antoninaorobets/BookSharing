@@ -27,7 +27,6 @@ function BookToShare({book, handleDelete, handleEdit}) {
         <Button size="small" onClick={()=>handleEdit(book.id)}>Edit</Button>
       </CardActions> 
     </Card>
-
   );
 }
 

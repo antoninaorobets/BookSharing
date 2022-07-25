@@ -16,8 +16,6 @@ import { NavLink } from 'react-router-dom'
 function BookToRequest({user, showName, book, owner}) {
   const [status, setStatus] = useState()
 
-  let userName 
-
   const requested = <Alert severity="success"> Request is sent to {owner.name}. <br />
     <NavLink to='/requests'>View Request</NavLink>
     </Alert>
@@ -56,7 +54,7 @@ function BookToRequest({user, showName, book, owner}) {
       </CardContent>
 
       <CardActions>
-        {user.id !== owner.id 
+        { user && user.id !== owner.id 
         ? <Button onClick={handleRequest} size="small" style={{margin:"auto"}} >Request </Button>
         :null }
       </CardActions> 

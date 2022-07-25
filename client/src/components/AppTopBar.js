@@ -1,12 +1,13 @@
 import React, {useContext} from 'react'
 import { AppBar, Toolbar, Typography, Button } from '@mui/material'
-import { NavLink } from 'react-router-dom'
+import { NavLink,useNavigate } from 'react-router-dom'
 import { logoutApi } from '../api/userApi';
 import {UserContext} from '../context/user' 
 
 
 function AppTopBar() {
   const { user, setUser } = useContext(UserContext)
+  const navigate = useNavigate()
 
   const linkStyle = ({ isActive }) => ({
     color: isActive ?'#827397' : "#5F5B5B",
@@ -17,6 +18,12 @@ function AppTopBar() {
     letterSpacing: "0.02857em",
     margin: "1em",
   })
+  const onSuccessLogout =()=>{
+   // logoutApi(user, setUser)
+   setUser()
+   navigate('/login')
+  }
+
 
   return (
     <AppBar
@@ -69,7 +76,7 @@ function AppTopBar() {
             <Button   
               variant="outlined" 
               sx={{ my: 1, mx: 1.5 }} 
-              onClick={(e) => logoutApi(user, setUser)} > 
+              onClick={(e) => logoutApi(user, onSuccessLogout)} > 
               Logout 
             </Button>
           </nav>
