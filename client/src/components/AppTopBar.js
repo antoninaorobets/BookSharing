@@ -34,6 +34,7 @@ function AppTopBar() {
             <NavLink
               style={linkStyle}
               data-testid = "my-books"
+              className = "my-books"
               to="/"
             >
               My Books
@@ -41,13 +42,14 @@ function AppTopBar() {
             <NavLink
               style={linkStyle}
               data-testid = "shared"
+              className = "shared"
               to="/shared"
             >
               Shared with me
             </NavLink>
             <NavLink
               style={linkStyle}
-              data-testid = "requests"
+              className = "requests"
               to='/requests'
             >
               Requests
