@@ -34,8 +34,8 @@ login
 TO DOs
 - delete shared lists
 - manage errors
+- change menu for mobile screens
 - If you have only one shared list no need to keep two tabs
 - if tou don't have any list => placeholder
 - return user on shared list after login if they go to login page from Save List, 
-
 - search books on client

@@ -1,7 +1,4 @@
-Rails.application.routes.draw do
-  resources :requests
-  
-  
+Rails.application.routes.draw do 
 
   scope :api do
     # '/api/users/user_id/{lists}/'

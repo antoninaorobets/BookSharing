@@ -22,7 +22,6 @@ function Requests() {
    
     const handleTabChange = (event, newValue) => {
         setSelectedTab(newValue);
-        console.log(newValue)
     };
     useEffect(() => {
         if (!user) return
@@ -38,8 +37,6 @@ function Requests() {
         setSent(data)
         setSentIsLoading(false)
     }
-    console.log("requested",received)
-    console.log("sent",sent)
 
     let receivedMessages
     if (!receivedIsLoading) {
