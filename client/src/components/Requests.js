@@ -41,7 +41,7 @@ function Requests() {
     let receivedMessages
     if (!receivedIsLoading) {
         receivedMessages = received.map((request,index) =>
-            <Grid item xs={1} sm={12} md={12}  key={index}  >
+            <Grid item xs={1} sm={12} md={12}  key={index}  sx= {{ pb: 2}} >
                 <Message 
                 data={request} 
                 user={user}/>
@@ -51,7 +51,7 @@ function Requests() {
     let sentMessages
     if (!sentIsLoading) {
         sentMessages = sent.map((request,index) =>
-            <Grid item xs={1} sm={12} md={12}  key={index}  >
+            <Grid item xs={1} sm={12} md={12}  key={index} sx= {{ pb: 2}} >
                 <Message 
                 data={request} 
                 user={user}/>
@@ -82,16 +82,16 @@ function Requests() {
                         align="center"
                         color="text.primary"
                         gutterBottom
-                        sx={{ mb: 4, color: "#5F5B5B" }}
+                        sx={{  color: "#5F5B5B" }}
                     >
                         Requests
                     </Typography>
                 </Container>
             </Box>
 
-            <Container   style={{backgroundColor: "rgb(130, 115, 151, 0.1)", width: "70%", borderRadius: "10px"}} >
+            <Container   style={{backgroundColor: "rgb(130, 115, 151, 0.1)", width: "70%", borderRadius: "10px", p: 4}} >
                 <Tabs
-                    sx={{ pb: 4 }} 
+                    sx={{ pb: 2 }} 
                     value={selectedTab}
                     onChange={handleTabChange}
                     textColor="primary"
@@ -101,7 +101,7 @@ function Requests() {
                     <Tab value="sent" label="Sent requests" />
                     <Tab value="received" label="Received requests" />
                 </Tabs>
-                <Grid container spacing={4}> 
+                <Grid container spacing={1}> 
                     {display}
                 </Grid> 
             </Container>     
