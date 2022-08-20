@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Container, Divider,  Button, Grid, Box, Alert, Typography, TextField, CssBaseline } from '@mui/material';
+import { Container, Divider,  Button, Box, Alert, Typography, TextField, CssBaseline } from '@mui/material';
 import {postBookApi, editBookApi} from '../api/bookApi'
 
 function BookForm({user, setShowForm, editBook, editMode, setEditMode, SetEditBook, onSuccessCreate, onSuccessEdit}) {
@@ -7,6 +7,7 @@ function BookForm({user, setShowForm, editBook, editMode, setEditMode, SetEditBo
     const [title, setTitle] = useState(editBook.title)
     const [author, setAuthor] = useState(editBook.author)
     const [description, setDescription] = useState(editBook.description)
+    
 
     let formTexts
     if (editMode) {
@@ -22,6 +23,11 @@ function BookForm({user, setShowForm, editBook, editMode, setEditMode, SetEditBo
             formClose: "Cancel"
         }
     }
+    const onError = (error)=> {
+        const empty_error = <Alert severity="error" sx={{p: 1, m: 2}}> Please enter book's Title and Author</Alert>
+        console.error(error)
+        setErrorMessage(empty_error)
+    }
   
     async function  handleSubmit(e)  {
         e.preventDefault()
@@ -31,9 +37,9 @@ function BookForm({user, setShowForm, editBook, editMode, setEditMode, SetEditBo
                     "description":description
                 }
         if (editMode) {
-            editBookApi(user, editBook.id, formData, onSuccessEdit)          
+            editBookApi(user, editBook.id, formData, onSuccessEdit, onError)          
         } else {
-            postBookApi(user, formData, onSuccessCreate)          
+            postBookApi(user, formData, onSuccessCreate, onError)          
         }
         e.target.reset()
     }
@@ -80,7 +86,8 @@ function BookForm({user, setShowForm, editBook, editMode, setEditMode, SetEditBo
                         onChange={(e)=>setDescription(e.target.value)}
                         defaultValue={editBook.description}
                     />
-                    {errorMessage ? <Alert severity="error"> {errorMessage.errors}</Alert> : null}
+                    {/* {errorMessage ? <Alert severity="error"> {errorMessage.errors}</Alert> : null} */}
+                   {errorMessage}
                     <Button
                         type="submit"
                         fullWidth
@@ -92,6 +99,7 @@ function BookForm({user, setShowForm, editBook, editMode, setEditMode, SetEditBo
                     </Button>
                 </Box>
             </Box>
+
             <Button style={{ display: 'flex', margin: "auto", }} size="small" onClick={() => { 
                 setShowForm(false); 
                 setEditMode(false);

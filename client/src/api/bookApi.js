@@ -12,7 +12,7 @@ function bookApi(prop) {
 export default bookApi
 
 
-export async function postBookApi(user, formData, onSuccessCreate){
+export async function postBookApi(user, formData, onSuccessCreate, onError){
      return fetch(`/api/users/${user.id}/books/`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -21,14 +21,14 @@ export async function postBookApi(user, formData, onSuccessCreate){
             if (responce.ok) {
                 responce.json().then(book => onSuccessCreate(book))
             } else {
-                responce.json().then(error => error)
+                responce.json().then(error => onError(error))
             }
         })
    
 }
 
 
-export async function editBookApi(user, book_id, formData, onSuccessEdit){
+export async function editBookApi(user, book_id, formData, onSuccessEdit,onError){
      return fetch(`/api/users/${user.id}/books/${book_id}`, {
             method: "PATCH",
             headers: { "Content-Type": "application/json" },
@@ -37,7 +37,7 @@ export async function editBookApi(user, book_id, formData, onSuccessEdit){
             if (responce.ok) {
                 responce.json().then((book) => onSuccessEdit(book))
             } else {
-                responce.json().then(error => error)
+                responce.json().then(error => onError(error))
             }
         })
    
