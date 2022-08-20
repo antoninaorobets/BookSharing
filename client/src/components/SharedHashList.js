@@ -6,9 +6,6 @@ import { showSharedListApi, checkIfSavedApi, createSharedListApi } from '../api/
 import PlaceholderIsLoading from './PlaceholderIsLoading'
 import { useParams } from 'react-router-dom';
 import { UserContext } from '../context/user'
-import BookToShare from './BookToShare'
-//import { useNavigate } from 'react-router-dom';
-
 
 function SharedHashList() {
     const { user } = useContext(UserContext)
@@ -18,10 +15,7 @@ function SharedHashList() {
     const [savedList, setSavedList] = useState(false)
     const { hash } = useParams()
     const [noList, setNoList] = useState(false)
-    const login_error = <Alert severity="error">Please Log in</Alert>
-
-    //const navigate = useNavigate()
-
+    const login_error = <Alert severity="error" sx={{p: 1, m: 2}}> Please <a href="/login">Log in</a> to your account to save this list</Alert>
 
     useEffect(() => {
         showSharedListApi(hash, onSuccessGetList, onError)
@@ -44,7 +38,6 @@ function SharedHashList() {
     const onSuccessCreate = (data) => {
         setSavedList(true)
     }
-
 
     const onSave = () => {
         if (user && !savedList) {
@@ -83,8 +76,6 @@ function SharedHashList() {
                 />
             </Grid>)
     }
-
-
 
     return (
         <div>
@@ -146,9 +137,6 @@ function SharedHashList() {
                             {errorMessage}
                         </Container>}
             </Box>
-
-
-
 
             <Container sx={{ py: 4 }} maxWidth="md">
                 <Grid container spacing={4}>
