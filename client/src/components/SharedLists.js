@@ -1,15 +1,9 @@
-import { Grid, Tab, Tabs, Box, Button, Typography } from '@mui/material'
+import { Grid, Tab, Tabs, Box } from '@mui/material'
 import React, { useEffect, useState, useContext } from 'react'
-import BookToShare from './BookToShare'
 import BookToRequest from './BookToRequest'
 import Container from '@mui/material/Container';
-import BookForm from './BookForm'
-import BooksControls from './BooksControls'
-import { deleteBookApi } from '../api/bookApi'
-import { showSharedListApi, getAllSharedListsApi } from '../api/listApi'
+import { getAllSharedListsApi } from '../api/listApi'
 import PlaceholderIsLoading from './PlaceholderIsLoading'
-import { useParams } from 'react-router-dom';
-import ListTab from './ListsTab'
 import {UserContext} from '../context/user'
 
 function SharedLists() {

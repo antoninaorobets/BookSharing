@@ -14,15 +14,15 @@ function BookToShare({book, handleDelete, handleEdit}) {
         <Typography gutterBottom variant="h6" color="#827397" role="title" component="div">
           {book.title}
         </Typography>
-        <Divider />
-        <Typography gutterBottom variant="h7" color="#5F5B5B" role="author" component="div"   sx={{pt: "8px"}}>
-          {book.author}
+       
+        <Typography gutterBottom variant="h7" color="#827397" role="author" component="div"   sx={{pt: "8px"}}>
+        by  {book.author}
         </Typography>
         <Typography variant="body2"  role="description" color="text.secondary"  sx={{pt: "8px"}}>
           {book.description}
         </Typography>
       </CardContent>
-      <CardActions>
+      <CardActions style={{margin:"auto"}}>
         <Button size="small" onClick={()=>handleDelete(book.id)}>Delete</Button>
         <Button size="small" onClick={()=>handleEdit(book.id)}>Edit</Button>
       </CardActions> 

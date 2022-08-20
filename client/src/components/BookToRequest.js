@@ -37,23 +37,25 @@ function BookToRequest({user, showName, book, owner}) {
   return (
     <Card  sx={{ height: '100%', display: 'flex', flexDirection: 'column' }} style={{bgcolor: " #827397"}} >
       <CardContent  sx={{ flexGrow: 1 }}>
-      {showName ? <Typography  gutterBottom variant="h5" component="h5" role='owner' color="#5F5B5B">{owner.name}'s book
-          <Divider/>
+      {showName ? <Typography gutterBottom variant="overline" component="h5"  role='owner' textAlign="center"  color="#5F5B5B">
+        {owner.name}'s book  
+        <Divider/>
       </Typography>
         : null}
-       <Typography gutterBottom variant="h6" color="#827397" role='title' component="h1">
-          {book.title}
+       <Typography gutterBottom variant="h6" sx={{pt: "2px"}} color="#827397" role='title' >
+        {book.title}
         </Typography>
-        <Divider />
-        <Typography gutterBottom variant="h7" color="#5F5B5B" role='author'  component="div" sx={{pt: "8px"}}>
-          {book.author}
+        {/* <Divider /> */}
+        <Typography gutterBottom variant="subtitle1"  color="#827397" role='author'  component="div">
+       by {book.author}
         </Typography>
         <Typography variant="body2" color="text.secondary" role='description'  sx={{pt: "8px"}}>
           {book.description}
         </Typography>
       </CardContent>
-
+     
       <CardActions>
+        
         { user && user.id !== owner.id 
         ? <Button onClick={handleRequest} size="small" style={{margin:"auto"}} >Request </Button>
         :null }
