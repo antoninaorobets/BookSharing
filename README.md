@@ -39,3 +39,15 @@ TO DOs
 - if tou don't have any list => placeholder
 - return user on shared list after login if they go to login page from Save List, 
 - search books on client
+
+
+1. Show error when save empty book
+2. Space before error, center message + link to Login
+3. Small owners name
+4. Code for shared link
+5. Space after sent notification
+6. The list you can share = > Your shared list
+
+
+npm start --prefix client
+rails server
