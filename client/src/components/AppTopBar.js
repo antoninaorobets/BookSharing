@@ -12,10 +12,10 @@ function AppTopBar() {
   const linkStyle = ({ isActive }) => ({
     color: isActive ?'#827397' : "#5F5B5B",
     textTransform: "uppercase",
-    fontWeight: isActive ? '800' :"500",
-    fontSize:  isActive ? "1rem" : "0.875rem",
+    fontWeight: isActive ? '700' :"500",
+    fontSize:  "0.875rem",
     lineHeight: "1.75",
-    letterSpacing: "0.02857em",
+    letterSpacing: "0.0289em",
     margin: "1em",
   })
   const onSuccessLogout =()=>{
