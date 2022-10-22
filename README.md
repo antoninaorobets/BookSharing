@@ -1,52 +1,47 @@
-# README
-Book Sharing app
-General
-Problem: I have tons of children's books, so some of them I don’t read to my kids for months. So I would love to share these books with my friends, and also I would like to borrow some books for a couple of weeks to see if he likes the story and give back. But it is not easy to share the information which books I can share or borrow.
+# Book Sharing app
 
-Solution: Create an app that keeps track of my books and shares a list of books I can share with my friends.
+## About the app
+I have a lot of kids' books that I don't read to my son right now, and they are in different languages, which are not easy to buy in the USA. I wanted to share these books with my friends when I don't need them. So I came up with an idea to make this process easier and write a web app for that purpose. When my friend asks me for some books to read, instead of sending pictures of books in messenger, I add my books to the list in the app and then share the link. Users can request any book from that list they want to borrow, and the system will notify me which book to share.
 
-Goal:  Share the link with friends following which users can see the list of books they can borrow. Add books easily to the list by copy/pasting a link from amazon. Request selected book.
 
-Models
+## User Stories
+As User, I can create an account and sign in to the app to get access to my book.
+As an Authorized User I can add a book to my list.
+As an Authorized User I can edit a book from my list.
+As an Authorized User I can share a list with other users (copy/paste link).
+As an authorized User I can delete a book from my list with shared books.
+As a Authorized User I can see a shared list of books.
+As a Authorized User I can see a shared list of books from a particular user.
+As an Authorized User I can sent a request for book from the shared list.
+As an Authorized User I can receive and view requests for book.
+View borrowed books list.
 
-User Stories
-As User, I can create an account and sign in to the app to get access to my book
-As an Authorized User I can add a book to my list
-As an Authorized User I can edit a book from my list
-As an Authorized User I can share a list with other users (copy/paste link)
-As an authorized User I can delete a book from my list with shared books
+## Technical details
 
-As a Authorized User I can see a shared list of books
-As a Authorized User I can see a shared list of books from particular user
-As an Authorized User I can sent a request for book from the shared list
-As an Authorized User I can receive and view requests for book 
-View borrowed books list
+Frontent - ReactJS; back-end - Ruby on rails, UI - Bootstrap React.
 
-Views
-My Books - page where user can see all books he is going to share
-	Add new Book  - form to copy/pasting a link from amazon
-Shared Books - page where user can see his friends books which he can request
-	Request a Book - form to request a selected book
-Requests  - page with list of received and sent rwequests
-login  
+### Data Model
+![image] (./DataModel.png)
+
+### Views
+My Books - page where the user can see all books he is going to share.
+	Add a new Book  - form to copy/paste a link from amazon.
+Shared Books - page where the user can see his friends' books which he can request.
+	Request a Book - form to request a selected book.
+Requests  - page with a list of received and sent requests.
+Login.
 
 
 TO DOs
-- delete shared lists
+- delete saved lists
 - manage errors
-- change menu for mobile screens
-- If you have only one shared list no need to keep two tabs
-- if tou don't have any list => placeholder
+- add menu for mobile 
+- when you have only one shared list no need to keep two tabs
+- when tou don't have any list => placeholder
 - return user on shared list after login if they go to login page from Save List, 
-- search books on client
+- search shared books
+- name+numbers code for shared link
 
-
-1. Show error when save empty book
-2. Space before error, center message + link to Login
-3. Small owners name
-4. Code for shared link
-5. Space after sent notification
-6. The list you can share = > Your shared list
 
 
 npm start --prefix client
