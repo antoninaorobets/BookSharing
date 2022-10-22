@@ -5,23 +5,22 @@ I have a lot of kids' books that I don't read to my son right now, and they are 
 
 
 ## User Stories
-As User, I can create an account and sign in to the app to get access to my book.
-As an Authorized User I can add a book to my list.
-As an Authorized User I can edit a book from my list.
-As an Authorized User I can share a list with other users (copy/paste link).
-As an authorized User I can delete a book from my list with shared books.
-As a Authorized User I can see a shared list of books.
-As a Authorized User I can see a shared list of books from a particular user.
-As an Authorized User I can sent a request for book from the shared list.
-As an Authorized User I can receive and view requests for book.
-View borrowed books list.
+- As User, I can create an account and sign in to the app to get access to my book.
+- As an Authorized User I can add a book to my list.
+- As an Authorized User I can edit a book from my list.
+- As an Authorized User I can share a list with other users (copy/paste link).
+- As an authorized User I can delete a book from my list with shared books.
+- As a Authorized User I can see a shared list of books.
+- As a Authorized User I can see a shared list of books from a particular user.
+- As an Authorized User I can sent a request for book from the shared list.
+- As an Authorized User I can receive and view requests for book.
+- View borrowed books list.
 
 ## Technical details
-
 Frontent - ReactJS; back-end - Ruby on rails, UI - Bootstrap React.
 
 ### Data Model
-![image] (./DataModel.png)
+![Data Model](https://github.com/antoninaorobets/BookSharing/blob/main/DataModel.png?raw=true)
 
 ### Views
 My Books - page where the user can see all books he is going to share.
@@ -32,7 +31,9 @@ Requests  - page with a list of received and sent requests.
 Login.
 
 
-TO DOs
+## To Dos
+- add book image
+- add book from the link from Amazon
 - delete saved lists
 - manage errors
 - add menu for mobile 
